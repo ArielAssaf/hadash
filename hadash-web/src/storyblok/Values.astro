@@ -1,0 +1,41 @@
+---
+import { storyblokEditable } from '@storyblok/astro'
+
+const { blok } = Astro.props
+---
+
+<div {...storyblokEditable(blok)} class="bg-white dark:bg-background-dark py-24 transition-colors">
+  <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+    <div class="mb-16 text-center flex flex-col items-center">
+      <h2 class="text-4xl font-black tracking-tight text-text-main dark:text-white sm:text-5xl uppercase">
+        {blok.title || 'Core Values'}
+      </h2>
+      <div class="h-1.5 w-24 bg-primary mt-6 mb-6"></div>
+      <p class="mx-auto max-w-2xl text-xl text-text-muted dark:text-gray-400 font-medium leading-relaxed">
+        {blok.description || 'We are dedicated to building a just society for all citizens, grounded in mutual respect and partnership.'}
+      </p>
+    </div>
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+      {blok.columns?.map((col: any) => (
+        <div class="group relative overflow-hidden rounded-2xl h-[400px] shadow-xl border border-gray-100 dark:border-white/5">
+          <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style={`background-image: url("${col.image?.filename || 'https://lh3.googleusercontent.com/aida-public/AB6AXuB6czdVAdRIYITT1gKKvOr-eqIvh5ZEcO5E8UXFPVlYX3C95Angatef4PRb4Fy90Yk2DRv_117ET7QOuBYvojhjPy0pR3lQnlDNkyrHTyckQe1uo0qHDCTjBCt3oALSRbiG47B8NE_KJ9CYfJsI4ifjuKlr4qrVPFU0_gP_0ae_pfTB6hB6SQKkvnpwmh2B-1isykuGa1fZOh152PH2FFd4eTfrs6gOL20Y7mmMfVXfOkQ__O0ZYTM2FarymW9yimnXaKE2HDRupNV8'}");`}></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 p-8 w-full z-10">
+            <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white shadow-lg transform group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined text-2xl">{col.icon || 'public'}</span>
+            </div>
+            <h3 class="mb-3 text-2xl font-black text-white uppercase tracking-tight leading-tight">
+              {col.title || 'Value Title'}
+            </h3>
+            <p class="text-gray-200 text-sm leading-relaxed opacity-90 font-medium">
+              {col.text || 'Description of the core value and how it impacts our community.'}
+            </p>
+          </div>
+        </div>
+      )) || (
+        <p class="text-center col-span-full opacity-50 italic">No values defined yet.</p>
+      )}
+    </div>
+  </div>
+</div>
+

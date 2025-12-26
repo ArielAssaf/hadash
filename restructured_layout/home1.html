@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Hadash - Building a Shared Future</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#E31B23",
+                        "primary-dark": "#bf151c",
+                        "background-light": "#ffffff",
+                        "background-dark": "#1a1a1a",
+                        "text-main": "#111111",
+                        "text-muted": "#555555",
+                    },
+                    fontFamily: {
+                        "display": ["Rubik", "sans-serif"],
+                        "sans": ["Rubik", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "full": "9999px"
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "linear-gradient(to right bottom, rgba(0, 0, 0, 0.8), rgba(227, 27, 35, 0.4))",
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Rubik', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-text-main dark:text-white transition-colors duration-200">
+    <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+        <header
+            class="sticky top-0 z-50 w-full border-b border-gray-100 bg-white/95 dark:bg-background-dark/95 dark:border-gray-800 backdrop-blur-md">
+            <div class="mx-auto flex h-20 max-w-[1200px] items-center justify-between px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center gap-4">
+                    <a class="flex items-center gap-3 group" href="#">
+                        <div
+                            class="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white font-black text-2xl leading-none shadow-sm">
+                            ח
+                        </div>
+                        <div class="flex flex-col">
+                            <h2 class="text-3xl font-black tracking-tighter text-primary uppercase leading-none">Hadash
+                            </h2>
+                            <span
+                                class="text-[0.6rem] font-bold tracking-widest text-text-main dark:text-gray-400 uppercase leading-none mt-0.5">The
+                                Democratic Front</span>
+                        </div>
+                    </a>
+                </div>
+                <nav class="hidden xl:flex items-center gap-6">
+                    <a class="text-xs font-bold uppercase tracking-wide text-text-main hover:text-primary transition-colors"
+                        href="#">Vision</a>
+                    <a class="text-xs font-bold uppercase tracking-wide text-text-main hover:text-primary transition-colors"
+                        href="#">Action</a>
+                    <a class="text-xs font-bold uppercase tracking-wide text-text-main hover:text-primary transition-colors"
+                        href="#">Team</a>
+                    <a class="text-xs font-bold uppercase tracking-wide text-text-main hover:text-primary transition-colors"
+                        href="#">Utilities</a>
+                    <a class="text-xs font-bold uppercase tracking-wide text-text-main hover:text-primary transition-colors"
+                        href="#">Supporter</a>
+                    <a class="text-xs font-bold uppercase tracking-wide text-text-main hover:text-primary transition-colors"
+                        href="#">News</a>
+                    <a class="text-xs font-bold uppercase tracking-wide text-text-main hover:text-primary transition-colors"
+                        href="#">Transparency</a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <div
+                        class="hidden lg:flex items-center divide-x divide-gray-300 dark:divide-gray-600 border border-gray-200 dark:border-gray-700 rounded-md overflow-hidden h-9">
+                        <a class="px-3 py-1.5 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-xs font-bold uppercase text-text-muted dark:text-gray-300 transition-colors flex items-center gap-1"
+                            href="#">
+                            <span class="material-symbols-outlined text-[16px]">language</span> EN
+                        </a>
+                        <a class="px-3 py-1.5 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-xs font-bold uppercase text-text-muted dark:text-gray-300 transition-colors flex items-center gap-1"
+                            href="#">
+                            RU
+                        </a>
+                    </div>
+                    <button
+                        class="flex items-center justify-center rounded bg-primary px-5 py-2 text-xs font-black text-white transition-all hover:bg-primary-dark shadow-md hover:shadow-lg uppercase tracking-wider">
+                        Donate
+                    </button>
+                    <button class="xl:hidden text-text-main dark:text-white">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+        <main class="flex-grow">
+            <div class="relative w-full">
+                <div class="absolute inset-0 z-0 bg-cover bg-center"
+                    data-alt="Diverse crowd of people marching peacefully"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB4N_ORENr-HXyeuYK49rvVkWdap6VVk8kms0dCntNsYMvxNahq3PESuzc3Ui9seHGDmDANJ9bHd8D8MzYf2HtSt9OVyPdFn4g1V9dOOSMs0d4mYjGxBPQphz75c99N05_IH2SH81AckIccyNZ9PKrblwrvhZJPtRsN9hv4QuK8FALY5Qy_nRJ6NbjAineUUCOAtVZn4fMySUMVHPESZIZXxisupUF_AVH-2RRo4QFSakq_dJAvXU10zIhuSs_sh0x4kt_2ROWc28oV");'>
+                    <div class="absolute inset-0 bg-gradient-to-r from-neutral-900/95 via-neutral-900/80 to-primary/20">
+                    </div>
+                </div>
+                <div class="relative z-10 mx-auto max-w-[1200px] px-4 py-32 sm:px-6 lg:px-8 lg:py-48">
+                    <div class="flex flex-col items-start text-left max-w-3xl">
+                        <div
+                            class="mb-8 inline-flex items-center rounded-full border border-white/20 bg-primary/90 px-4 py-1.5 text-sm font-bold text-white backdrop-blur-md shadow-lg">
+                            <span class="mr-2 h-2.5 w-2.5 rounded-full bg-white animate-pulse"></span>
+                            Official Movement Portal
+                        </div>
+                        <h1
+                            class="mb-8 text-5xl font-black leading-none tracking-tight text-white sm:text-7xl lg:text-8xl">
+                            Building a <br />
+                            <span class="text-primary">Shared Future</span>
+                        </h1>
+                        <p class="mb-12 max-w-2xl text-xl font-medium text-gray-200 sm:text-2xl leading-relaxed">
+                            Join the movement for peace, equality, and social justice. We are building bridges between
+                            communities.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <button
+                                class="rounded-lg bg-primary px-8 py-4 text-base font-black text-white transition-all hover:bg-primary-dark shadow-lg hover:shadow-xl uppercase tracking-wide">
+                                Join Us Now
+                            </button>
+                            <button
+                                class="rounded-lg bg-white/10 border border-white/30 px-8 py-4 text-base font-bold text-white transition-all hover:bg-white/20 backdrop-blur-sm uppercase tracking-wide">
+                                Read Manifesto
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-background-dark py-24">
+                <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+                    <div class="mb-16 text-center">
+                        <h2
+                            class="text-4xl font-black tracking-tight text-text-main dark:text-white sm:text-5xl uppercase">
+                            Core Values</h2>
+                        <div class="h-1 w-24 bg-primary mx-auto mt-6 mb-6"></div>
+                        <p class="mx-auto max-w-2xl text-xl text-text-muted dark:text-gray-400">
+                            We are dedicated to building a just society for all citizens, grounded in mutual respect and
+                            partnership.
+                        </p>
+                    </div>
+                    <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+                        <div class="group relative overflow-hidden rounded-2xl h-[400px] shadow-lg">
+                            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB6czdVAdRIYITT1gKKvOr-eqIvh5ZEcO5E8UXFPVlYX3C95Angatef4PRb4Fy90Yk2DRv_117ET7QOuBYvojhjPy0pR3lQnlDNkyrHTyckQe1uo0qHDCTjBCt3oALSRbiG47B8NE_KJ9CYfJsI4ifjuKlr4qrVPFU0_gP_0ae_pfTB6hB6SQKkvnpwmh2B-1isykuGa1fZOh152PH2FFd4eTfrs6gOL20Y7mmMfVXfOkQ__O0ZYTM2FarymW9yimnXaKE2HDRupNV8");'>
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
+                            </div>
+                            <div class="absolute bottom-0 left-0 p-8 w-full">
+                                <div
+                                    class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white shadow-sm">
+                                    <span class="material-symbols-outlined text-2xl">public</span>
+                                </div>
+                                <h3 class="mb-2 text-2xl font-black text-white uppercase tracking-tight">End the
+                                    Occupation</h3>
+                                <p class="text-gray-200 text-sm leading-relaxed opacity-90">Striving for a peaceful
+                                    resolution based on two states for two peoples.</p>
+                            </div>
+                        </div>
+                        <div class="group relative overflow-hidden rounded-2xl h-[400px] shadow-lg">
+                            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB4N_ORENr-HXyeuYK49rvVkWdap6VVk8kms0dCntNsYMvxNahq3PESuzc3Ui9seHGDmDANJ9bHd8D8MzYf2HtSt9OVyPdFn4g1V9dOOSMs0d4mYjGxBPQphz75c99N05_IH2SH81AckIccyNZ9PKrblwrvhZJPtRsN9hv4QuK8FALY5Qy_nRJ6NbjAineUUCOAtVZn4fMySUMVHPESZIZXxisupUF_AVH-2RRo4QFSakq_dJAvXU10zIhuSs_sh0x4kt_2ROWc28oV");'>
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
+                            </div>
+                            <div class="absolute bottom-0 left-0 p-8 w-full">
+                                <div
+                                    class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white shadow-sm">
+                                    <span class="material-symbols-outlined text-2xl">balance</span>
+                                </div>
+                                <h3 class="mb-2 text-2xl font-black text-white uppercase tracking-tight">Social Equality
+                                </h3>
+                                <p class="text-gray-200 text-sm leading-relaxed opacity-90">Fighting for equal rights,
+                                    fair wages, and opportunities for every citizen.</p>
+                            </div>
+                        </div>
+                        <div class="group relative overflow-hidden rounded-2xl h-[400px] shadow-lg">
+                            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB_V9v31YgWvYcQKrqddajD5P2QMr8VVLLRTT51EPKPT0SkUldCw5KYvfkA-OFonaaAdDIGkcYs7kzjnU6XhK9KLJEs-xCysg3-lKP_S4YWZIEV-t0qTwdf_TXT8EMN4q2hBLskrG7kM-oZfN2_SHq44GJP3YgiLTWWxkx7WJ6Db7F8wdTwteFN9U3vRxHTKCeTTpehdtDCDVCX-0tjjFr8U0XSodjhx5sqEng39PvWBhpYcNdtvjXIckCwEsegFvrMl5gFq02Jy_7Z");'>
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
+                            </div>
+                            <div class="absolute bottom-0 left-0 p-8 w-full">
+                                <div
+                                    class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white shadow-sm">
+                                    <span class="material-symbols-outlined text-2xl">diversity_3</span>
+                                </div>
+                                <h3 class="mb-2 text-2xl font-black text-white uppercase tracking-tight">Jewish-Arab
+                                    Partnership</h3>
+                                <p class="text-gray-200 text-sm leading-relaxed opacity-90">Building bridges between
+                                    communities for a shared, democratic future.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-50 dark:bg-[#151515] py-24">
+                <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+                    <div class="mb-12 flex items-center justify-between">
+                        <h2 class="text-3xl font-black text-text-main dark:text-white uppercase tracking-tight">Latest
+                            Updates</h2>
+                        <a class="hidden text-sm font-bold uppercase tracking-wide text-primary hover:text-primary-dark sm:block"
+                            href="#">View all news →</a>
+                    </div>
+                    <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+                        <article class="flex flex-col gap-5 group">
+                            <div class="aspect-[16/10] w-full overflow-hidden rounded bg-gray-200 relative">
+                                <div
+                                    class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                                </div>
+                                <div class="h-full w-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                                    data-alt="People sitting at a round table conference"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB_V9v31YgWvYcQKrqddajD5P2QMr8VVLLRTT51EPKPT0SkUldCw5KYvfkA-OFonaaAdDIGkcYs7kzjnU6XhK9KLJEs-xCysg3-lKP_S4YWZIEV-t0qTwdf_TXT8EMN4q2hBLskrG7kM-oZfN2_SHq44GJP3YgiLTWWxkx7WJ6Db7F8wdTwteFN9U3vRxHTKCeTTpehdtDCDVCX-0tjjFr8U0XSodjhx5sqEng39PvWBhpYcNdtvjXIckCwEsegFvrMl5gFq02Jy_7Z");'>
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-3">
+                                <span class="text-xs font-black uppercase tracking-widest text-primary">Politics</span>
+                                <h3 class="text-xl font-bold leading-tight text-text-main dark:text-white">
+                                    <a class="hover:text-primary transition-colors" href="#">Historic Peace Conference
+                                        in Tel Aviv</a>
+                                </h3>
+                                <p class="text-base text-text-muted dark:text-gray-400 line-clamp-2">
+                                    Leaders from across the spectrum gathered today to discuss the path forward towards
+                                    mutual understanding.
+                                </p>
+                            </div>
+                        </article>
+                        <article class="flex flex-col gap-5 group">
+                            <div class="aspect-[16/10] w-full overflow-hidden rounded bg-gray-200 relative">
+                                <div
+                                    class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                                </div>
+                                <div class="h-full w-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                                    data-alt="Large crowd holding signs at a rally"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB6czdVAdRIYITT1gKKvOr-eqIvh5ZEcO5E8UXFPVlYX3C95Angatef4PRb4Fy90Yk2DRv_117ET7QOuBYvojhjPy0pR3lQnlDNkyrHTyckQe1uo0qHDCTjBCt3oALSRbiG47B8NE_KJ9CYfJsI4ifjuKlr4qrVPFU0_gP_0ae_pfTB6hB6SQKkvnpwmh2B-1isykuGa1fZOh152PH2FFd4eTfrs6gOL20Y7mmMfVXfOkQ__O0ZYTM2FarymW9yimnXaKE2HDRupNV8");'>
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-3">
+                                <span class="text-xs font-black uppercase tracking-widest text-primary">Activism</span>
+                                <h3 class="text-xl font-bold leading-tight text-text-main dark:text-white">
+                                    <a class="hover:text-primary transition-colors" href="#">Youth Movement Rally Draws
+                                        Thousands</a>
+                                </h3>
+                                <p class="text-base text-text-muted dark:text-gray-400 line-clamp-2">
+                                    Young people from all backgrounds marched together demanding equality and social
+                                    justice reforms.
+                                </p>
+                            </div>
+                        </article>
+                        <article class="flex flex-col gap-5 group">
+                            <div class="aspect-[16/10] w-full overflow-hidden rounded bg-gray-200 relative">
+                                <div
+                                    class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                                </div>
+                                <div class="h-full w-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                                    data-alt="Close up of a microphone in parliament"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBfCOQnFJDko2MVRCvFPULH9OE9ixXvn5HN4re40-OpCkhmhiTDwiYtLNbDkpvMhyhcGnsbjhgO4HqskrH6HPXIsquyZtdhOPXN6QJkBYG2RMjL6YhofHZXCs_24FIAhymWtPFnRXZvnCkL9JpPI6TE-cQo4MWA29vWCMmA0yqo3QnCk6q-mnJsFI5ubycMOg9jUGPJGCo-yTnmhkMwwqUITwBxYg6uIWpnTxUxuux5FrOqvpQM9QauCOSeDSLqpZcZnne7yB5z19rj");'>
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-3">
+                                <span
+                                    class="text-xs font-black uppercase tracking-widest text-primary">Legislation</span>
+                                <h3 class="text-xl font-bold leading-tight text-text-main dark:text-white">
+                                    <a class="hover:text-primary transition-colors" href="#">Parliamentary Update: New
+                                        Bill Proposed</a>
+                                </h3>
+                                <p class="text-base text-text-muted dark:text-gray-400 line-clamp-2">
+                                    Our representatives have submitted a new comprehensive bill aimed at reducing the
+                                    cost of living.
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="mt-10 text-center sm:hidden">
+                        <a class="text-sm font-bold uppercase tracking-wide text-primary hover:text-primary-dark"
+                            href="#">View all news →</a>
+                    </div>
+                </div>
+            </div>
+            <div class="relative overflow-hidden bg-white dark:bg-background-dark py-32">
+                <div
+                    class="absolute right-0 top-0 -mr-20 -mt-20 h-[400px] w-[400px] rounded-full bg-primary/5 blur-3xl">
+                </div>
+                <div
+                    class="absolute bottom-0 left-0 -mb-20 -ml-20 h-[300px] w-[300px] rounded-full bg-red-400/10 blur-3xl">
+                </div>
+                <div class="relative mx-auto max-w-[800px] px-4 text-center sm:px-6 lg:px-8">
+                    <span
+                        class="mb-6 inline-block rounded-full bg-primary/10 px-4 py-1.5 text-sm font-bold text-primary uppercase tracking-wide">
+                        Stay Connected
+                    </span>
+                    <h2
+                        class="mb-6 text-5xl font-black tracking-tight text-text-main dark:text-white md:text-6xl uppercase">
+                        Join the Movement
+                    </h2>
+                    <p class="mb-10 text-xl text-text-muted dark:text-gray-400 font-light">
+                        Subscribe to our newsletter for the latest news, action alerts, and ways to get involved in
+                        building a shared future.
+                    </p>
+                    <form class="mx-auto flex max-w-md flex-col gap-3 sm:flex-row">
+                        <input
+                            class="flex-1 rounded border border-gray-300 bg-white px-5 py-3 text-text-main placeholder-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500 font-medium"
+                            placeholder="Enter your email address" type="email" />
+                        <button
+                            class="shrink-0 rounded bg-primary px-8 py-3 font-black text-white transition-colors hover:bg-primary-dark uppercase tracking-wide"
+                            type="submit">
+                            Subscribe
+                        </button>
+                    </form>
+                    <p class="mt-6 text-xs text-text-muted dark:text-gray-500">
+                        By subscribing, you agree to our Privacy Policy. You can unsubscribe at any time.
+                    </p>
+                </div>
+            </div>
+        </main>
+        <footer class="border-t border-gray-200 bg-gray-50 dark:bg-background-dark dark:border-gray-800">
+            <div class="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:justify-between gap-12">
+                    <div class="flex flex-col gap-6">
+                        <a class="flex items-center gap-3 group" href="#">
+                            <div
+                                class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white font-black text-lg leading-none shadow-sm">
+                                ח
+                            </div>
+                            <div class="flex flex-col">
+                                <span
+                                    class="text-2xl font-black tracking-tighter text-text-main dark:text-white uppercase leading-none">Hadash</span>
+                            </div>
+                        </a>
+                        <p class="max-w-xs text-sm text-text-muted dark:text-gray-400 font-medium leading-relaxed">
+                            A digital handshake for a better tomorrow. Promoting peace, equality, and social justice for
+                            all.
+                        </p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-8 sm:grid-cols-3 md:gap-16">
+                        <div class="flex flex-col gap-4">
+                            <h4 class="text-sm font-black uppercase tracking-wider text-text-main dark:text-white">
+                                Organization</h4>
+                            <a class="text-sm text-text-muted hover:text-primary transition-colors dark:text-gray-400"
+                                href="#">About Us</a>
+                            <a class="text-sm text-text-muted hover:text-primary transition-colors dark:text-gray-400"
+                                href="#">Our History</a>
+                            <a class="text-sm text-text-muted hover:text-primary transition-colors dark:text-gray-400"
+                                href="#">Leadership</a>
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            <h4 class="text-sm font-black uppercase tracking-wider text-text-main dark:text-white">
+                                Action</h4>
+                            <a class="text-sm text-text-muted hover:text-primary transition-colors dark:text-gray-400"
+                                href="#">Events</a>
+                            <a class="text-sm text-text-muted hover:text-primary transition-colors dark:text-gray-400"
+                                href="#">Volunteer</a>
+                            <a class="text-sm text-text-muted hover:text-primary transition-colors dark:text-gray-400"
+                                href="#">Donate</a>
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            <h4 class="text-sm font-black uppercase tracking-wider text-text-main dark:text-white">
+                                Connect</h4>
+                            <a class="text-sm text-text-muted hover:text-primary transition-colors dark:text-gray-400"
+                                href="#">Facebook</a>
+                            <a class="text-sm text-text-muted hover:text-primary transition-colors dark:text-gray-400"
+                                href="#">Twitter</a>
+                            <a class="text-sm text-text-muted hover:text-primary transition-colors dark:text-gray-400"
+                                href="#">Instagram</a>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="mt-16 flex flex-col items-center justify-between border-t border-gray-200 py-8 dark:border-gray-800 sm:flex-row">
+                    <p class="text-sm text-text-muted dark:text-gray-500">
+                        © 2024 Hadash. All rights reserved.
+                    </p>
+                    <div class="mt-4 flex gap-8 sm:mt-0">
+                        <a class="text-sm text-text-muted hover:text-primary transition-colors dark:text-gray-500"
+                            href="#">Privacy Policy</a>
+                        <a class="text-sm text-text-muted hover:text-primary transition-colors dark:text-gray-500"
+                            href="#">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

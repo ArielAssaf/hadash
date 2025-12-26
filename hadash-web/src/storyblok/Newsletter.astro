@@ -1,0 +1,46 @@
+---
+import { storyblokEditable } from '@storyblok/astro'
+import { t } from '../utils/i18n';
+
+const { blok, lang = 'en' } = Astro.props
+---
+
+<div {...storyblokEditable(blok)} class="relative overflow-hidden bg-white dark:bg-background-dark py-32 transition-colors">
+  <div class="absolute right-0 top-0 -mr-20 -mt-20 h-[400px] w-[400px] rounded-full bg-primary/5 blur-3xl"></div>
+  <div class="absolute bottom-0 left-0 -mb-20 -ml-20 h-[300px] w-[300px] rounded-full bg-red-400/10 blur-3xl"></div>
+  
+  <div class="relative mx-auto max-w-[800px] px-4 text-center sm:px-6 lg:px-8 flex flex-col items-center">
+    <div class="size-20 rounded-full bg-gray-50 dark:bg-white/5 border border-primary/20 flex items-center justify-center text-primary mb-8 shadow-xl shadow-primary/5 transform transition-transform hover:scale-110">
+      <span class="material-symbols-outlined text-5xl">mail</span>
+    </div>
+    
+    <span class="mb-6 inline-block rounded-full bg-primary/10 px-5 py-2 text-sm font-black text-primary uppercase tracking-widest border border-primary/20">
+      {blok.badge || t(lang, 'officialPortal')}
+    </span>
+    
+    <h2 class="mb-6 text-5xl font-black tracking-tighter text-text-main dark:text-white md:text-6xl uppercase leading-none">
+      {blok.title || t(lang, 'joinMovement')}
+    </h2>
+    
+    <p class="mb-12 text-xl text-text-muted dark:text-gray-400 font-medium leading-relaxed max-w-2xl">
+      {blok.description || 'Subscribe to our newsletter for the latest news, action alerts, and ways to get involved in building a shared future.'}
+    </p>
+    
+    <form class="mx-auto flex max-w-lg w-full flex-col gap-4 sm:flex-row group/form">
+      <input
+        class="flex-1 rounded-xl border border-gray-300 bg-white px-6 py-4 text-text-main placeholder-text-muted focus:border-primary focus:ring-4 focus:ring-primary/10 dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder-gray-500 font-bold transition-all outline-none"
+        placeholder={blok.placeholder || 'Enter your email address'}
+        type="email"
+        required
+      />
+      <button class="shrink-0 rounded-xl bg-primary px-10 py-4 font-black text-white transition-all hover:bg-primary-dark shadow-lg hover:shadow-primary/30 uppercase tracking-widest active:scale-95" type="submit">
+        {blok.button_label || 'Subscribe'}
+      </button>
+    </form>
+    
+    <p class="mt-8 text-xs text-text-muted dark:text-gray-500 font-medium opacity-80">
+      {blok.disclaimer || 'By subscribing, you agree to our Privacy Policy. No spam, just progress.'}
+    </p>
+  </div>
+</div>
+

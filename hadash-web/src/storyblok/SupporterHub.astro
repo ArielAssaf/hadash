@@ -1,0 +1,61 @@
+---
+import { storyblokEditable } from '@storyblok/astro'
+
+const { blok } = Astro.props
+---
+
+<div {...storyblokEditable(blok)} class="bg-white dark:bg-background-dark py-24 transition-colors">
+  <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+    <div class="mb-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
+      <div>
+        <h2 class="text-4xl md:text-5xl font-black text-text-main dark:text-white uppercase tracking-tighter mb-6">
+          {blok.title || 'Community Hub'}
+        </h2>
+        <div class="h-1.5 w-24 bg-primary mb-6"></div>
+        <p class="text-xl text-text-muted dark:text-gray-400 font-medium">
+          {blok.description || 'Hadash operates across the country through local branches and diversity networks. Get involved today.'}
+        </p>
+      </div>
+      <div class="flex justify-start lg:justify-end gap-4">
+        <a href={blok.cta_link?.cached_url || '#'} class="bg-primary text-white px-8 py-4 rounded-xl font-black uppercase tracking-widest hover:bg-primary-dark transition-all shadow-lg hover:shadow-primary/30">
+          {blok.cta_label || 'Join the Movement'}
+        </a>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {/* Branches */}
+      <div class="col-span-1 md:col-span-2 bg-gray-50 dark:bg-white/5 p-8 md:p-12 rounded-3xl border border-gray-100 dark:border-white/5">
+        <h3 class="text-2xl font-black text-text-main dark:text-white uppercase mb-8 flex items-center gap-3">
+          <span class="material-symbols-outlined text-primary">location_on</span>
+          Regional Centers
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {blok.branches?.map((branch: any) => (
+            <div class="p-6 bg-white dark:bg-background-dark rounded-2xl shadow-sm border border-gray-100 dark:border-white/10 group hover:border-primary/30 transition-all">
+              <h4 class="font-black text-text-main dark:text-white uppercase mb-2">{branch.name}</h4>
+              <p class="text-primary font-bold text-lg">{branch.phone}</p>
+              <p class="text-sm text-text-muted dark:text-gray-500 mt-1">{branch.coordinator || 'Local Coordinator'}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Networks */}
+      <div class="bg-primary text-white p-8 md:p-12 rounded-3xl shadow-xl flex flex-col gap-8">
+        <h3 class="text-2xl font-black uppercase flex items-center gap-3">
+          <span class="material-symbols-outlined">groups</span>
+          Networks
+        </h3>
+        <ul class="space-y-6">
+          {blok.networks?.map((network: any) => (
+            <li class="flex flex-col gap-1 border-b border-white/20 pb-4 last:border-0">
+              <span class="font-black uppercase tracking-wide">{network.name}</span>
+              <span class="text-white/80 text-sm leading-relaxed">{network.description}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

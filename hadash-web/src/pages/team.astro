@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TeamGrid from '../storyblok/TeamGrid.astro';
+import { t } from '../utils/i18n';
+
+const { lang = 'en' } = Astro.props;
+
+const mockTeam = {
+  title: t(lang, 'team'),
+  members: [
+    { name: "Ayman Odeh", role: "Leader", bio: "Advocate for Jewish-Arab partnership.", quote: "End the occupation, build a shared future." },
+    { name: "Aida Touma-Sliman", role: "MP", bio: "Feminist activist and legislator.", quote: "Equality is the foundation of peace." },
+    { name: "Ofer Cassif", role: "MP", bio: "Academic and peace activist.", quote: "The occupation is a disaster for both peoples." },
+    { name: "Youssef Jabareen", role: "MP", bio: "Legal scholar and civil rights expert.", quote: "Justice must be served for all." }
+  ]
+};
+---
+
+<BaseLayout lang={lang}>
+  <div class="pt-20">
+    <TeamGrid blok={mockTeam} />
+  </div>
+</BaseLayout>

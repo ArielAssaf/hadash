@@ -1,0 +1,127 @@
+---
+import { getDirection, t, getLocalizedPath } from '../utils/i18n';
+
+const { lang = 'en' } = Astro.props;
+const dir = getDirection(lang);
+---
+<!DOCTYPE html>
+<html class="light" lang={lang} dir={dir}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/favicon.svg" />
+    <title>Hadash - Building a Shared Future</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700;800;900&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <style>
+      body {
+        font-family: 'Rubik', sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-background-light dark:bg-background-dark text-text-main dark:text-white transition-colors duration-200">
+    <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+      <header class="sticky top-0 z-50 w-full border-b border-gray-100 bg-white/95 dark:bg-background-dark/95 dark:border-gray-800 backdrop-blur-md">
+        <div class="mx-auto flex h-20 max-w-[1200px] items-center justify-between px-4 sm:px-6 lg:px-8">
+          <div class="flex items-center gap-4">
+            <a class="flex items-center gap-3 group" href={getLocalizedPath('/', lang)}>
+              <div class="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white font-black text-2xl leading-none shadow-sm">
+                ח
+              </div>
+              <div class="flex flex-col">
+                <h2 class="text-3xl font-black tracking-tighter text-primary uppercase leading-none">{t(lang, 'logoText')}</h2>
+                {t(lang, 'officialPortal') && (
+                  <span class="text-[0.6rem] font-bold tracking-widest text-text-main dark:text-gray-400 uppercase leading-none mt-0.5">{t(lang, 'officialPortal')}</span>
+                )}
+              </div>
+            </a>
+          </div>
+          <nav class="hidden xl:flex items-center gap-6">
+            <a class="text-xs font-bold uppercase tracking-wide text-text-main hover:text-primary transition-colors" href={getLocalizedPath('/vision', lang)}>{t(lang, 'vision')}</a>
+            <a class="text-xs font-bold uppercase tracking-wide text-text-main hover:text-primary transition-colors" href={getLocalizedPath('/action', lang)}>{t(lang, 'action')}</a>
+            <a class="text-xs font-bold uppercase tracking-wide text-text-main hover:text-primary transition-colors" href={getLocalizedPath('/team', lang)}>{t(lang, 'team')}</a>
+            <a class="text-xs font-bold uppercase tracking-wide text-text-main hover:text-primary transition-colors" href={getLocalizedPath('/utilities', lang)}>{t(lang, 'utilities')}</a>
+            <a class="text-xs font-bold uppercase tracking-wide text-text-main hover:text-primary transition-colors" href={getLocalizedPath('/supporter', lang)}>{t(lang, 'supporter')}</a>
+            <a class="text-xs font-bold uppercase tracking-wide text-text-main hover:text-primary transition-colors" href={getLocalizedPath('/news', lang)}>{t(lang, 'news')}</a>
+            <a class="text-xs font-bold uppercase tracking-wide text-text-main hover:text-primary transition-colors" href={getLocalizedPath('/legislative', lang)}>{t(lang, 'legislative')}</a>
+          </nav>
+          <div class="flex items-center gap-4">
+            <div class="hidden lg:flex items-center divide-x divide-gray-300 dark:divide-gray-600 border border-gray-200 dark:border-gray-700 rounded-md overflow-hidden h-9">
+              <a class={`px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 text-xs font-bold uppercase flex items-center gap-1 ${lang === 'en' ? 'bg-primary text-white' : 'bg-gray-50 dark:bg-gray-800 text-text-muted dark:text-gray-300'}`} href="/">
+                <span class="material-symbols-outlined text-[16px]">language</span> EN
+              </a>
+              <a class={`px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 text-xs font-bold uppercase flex items-center gap-1 ${lang === 'he' ? 'bg-primary text-white' : 'bg-gray-50 dark:bg-gray-800 text-text-muted dark:text-gray-300'}`} href="/he">
+                HE
+              </a>
+              <a class={`px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 text-xs font-bold uppercase flex items-center gap-1 ${lang === 'ru' ? 'bg-primary text-white' : 'bg-gray-50 dark:bg-gray-800 text-text-muted dark:text-gray-300'}`} href="/ru">
+                RU
+              </a>
+            </div>
+            <button class="flex items-center justify-center rounded bg-primary px-5 py-2 text-xs font-black text-white transition-all hover:bg-primary-dark shadow-md hover:shadow-lg uppercase tracking-wider">
+              {t(lang, 'donate')}
+            </button>
+            <button class="xl:hidden text-text-main dark:text-white">
+              <span class="material-symbols-outlined">menu</span>
+            </button>
+          </div>
+        </div>
+      </header>
+      
+      <main class="flex-grow">
+        <slot />
+      </main>
+
+      <footer class="border-t border-gray-200 bg-gray-50 dark:bg-background-dark dark:border-gray-800">
+        <div class="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:px-8">
+          <div class="flex flex-col md:flex-row md:justify-between gap-12">
+            <div class="flex flex-col gap-6">
+              <a class="flex items-center gap-3 group" href={getLocalizedPath('/', lang)}>
+                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white font-black text-lg leading-none shadow-sm">
+                  ח
+                </div>
+                <div class="flex flex-col">
+                  <span class="text-2xl font-black tracking-tighter text-text-main dark:text-white uppercase leading-none">{t(lang, 'logoText')}</span>
+                </div>
+              </a>
+              <p class="max-w-xs text-sm text-text-muted dark:text-gray-400 font-medium leading-relaxed">
+                {t(lang, 'footerText')}
+              </p>
+            </div>
+            <div class="grid grid-cols-2 gap-8 sm:grid-cols-3 md:gap-16">
+              <div class="flex flex-col gap-4">
+                <h4 class="text-sm font-black uppercase tracking-wider text-text-main dark:text-white">Organization</h4>
+                <a class="text-sm text-text-muted hover:text-primary transition-colors dark:text-gray-400" href="#">About Us</a>
+                <a class="text-sm text-text-muted hover:text-primary transition-colors dark:text-gray-400" href="#">Our History</a>
+                <a class="text-sm text-text-muted hover:text-primary transition-colors dark:text-gray-400" href="#">Leadership</a>
+              </div>
+              <div class="flex flex-col gap-4">
+                <h4 class="text-sm font-black uppercase tracking-wider text-text-main dark:text-white">Action</h4>
+                <a class="text-sm text-text-muted hover:text-primary transition-colors dark:text-gray-400" href="#">Events</a>
+                <a class="text-sm text-text-muted hover:text-primary transition-colors dark:text-gray-400" href="#">Volunteer</a>
+                <a class="text-sm text-text-muted hover:text-primary transition-colors dark:text-gray-400" href="#">Donate</a>
+              </div>
+              <div class="flex flex-col gap-4">
+                <h4 class="text-sm font-black uppercase tracking-wider text-text-main dark:text-white">Connect</h4>
+                <a class="text-sm text-text-muted hover:text-primary transition-colors dark:text-gray-400" href="#">Facebook</a>
+                <a class="text-sm text-text-muted hover:text-primary transition-colors dark:text-gray-400" href="#">Twitter</a>
+                <a class="text-sm text-text-muted hover:text-primary transition-colors dark:text-gray-400" href="#">Instagram</a>
+              </div>
+            </div>
+          </div>
+          <div class="mt-16 flex flex-col items-center justify-between border-t border-gray-200 py-8 dark:border-gray-800 sm:flex-row">
+            <p class="text-sm text-text-muted dark:text-gray-500">
+              © 2024 Hadash. All rights reserved.
+            </p>
+            <div class="mt-4 flex gap-8 sm:mt-0">
+              <a class="text-sm text-text-muted hover:text-primary transition-colors dark:text-gray-500" href="#">Privacy Policy</a>
+              <a class="text-sm text-text-muted hover:text-primary transition-colors dark:text-gray-500" href="#">Terms of Service</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
+

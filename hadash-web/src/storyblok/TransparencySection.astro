@@ -1,0 +1,60 @@
+---
+import { storyblokEditable } from '@storyblok/astro'
+
+const { blok } = Astro.props
+---
+
+<div {...storyblokEditable(blok)} class="bg-gray-50 dark:bg-[#151515] py-24 transition-colors">
+  <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+    <div class="mb-16">
+      <h2 class="text-4xl md:text-5xl font-black text-text-main dark:text-white uppercase tracking-tighter mb-4">
+        {blok.title || 'Transparency & Ethics'}
+      </h2>
+      <div class="h-1.5 w-24 bg-primary mb-6"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {blok.cards?.map((card: any) => (
+        <div class="bg-white dark:bg-background-dark p-10 rounded-3xl shadow-lg border border-gray-100 dark:border-white/5 flex flex-col gap-6 group hover:translate-y-[-5px] transition-transform">
+          <div class="size-14 rounded-2xl bg-gray-50 dark:bg-white/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+            <span class="material-symbols-outlined text-3xl">{card.icon || 'shield_person'}</span>
+          </div>
+          <h3 class="text-2xl font-black text-text-main dark:text-white uppercase leading-tight">
+            {card.title}
+          </h3>
+          <p class="text-text-muted dark:text-gray-400 font-medium leading-relaxed">
+            {card.text}
+          </p>
+          {card.link_label && (
+             <a href={card.link?.cached_url || '#'} class="mt-4 text-sm font-black text-primary uppercase tracking-widest flex items-center gap-2 hover:gap-3 transition-all">
+               {card.link_label}
+               <span class="material-symbols-outlined text-lg">arrow_forward</span>
+             </a>
+          )}
+        </div>
+      ))}
+    </div>
+    
+    {blok.funding_info && (
+       <div class="mt-16 bg-primary text-white p-10 md:p-16 rounded-3xl shadow-2xl relative overflow-hidden">
+         <div class="absolute right-0 top-0 opacity-10 blur-2xl">
+           <span class="material-symbols-outlined text-[300px]">payments</span>
+         </div>
+         <div class="relative z-10 max-w-3xl">
+           <h3 class="text-3xl font-black uppercase mb-8">How We Are Funded</h3>
+           <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+             {blok.funding_items?.map((item: any) => (
+               <div class="flex items-start gap-4">
+                 <span class="material-symbols-outlined mt-1">check_circle</span>
+                 <div>
+                   <p class="font-black uppercase text-sm mb-1">{item.title}</p>
+                   <p class="text-white/80 text-sm leading-relaxed">{item.description}</p>
+                 </div>
+               </div>
+             ))}
+           </div>
+         </div>
+       </div>
+    )}
+  </div>
+</div>

@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import { newsItems } from '../../../../data/news';
+import { locales, t } from '../../../../utils/i18n';
+
+export async function getStaticPaths() {
+  return locales.flatMap(lang => {
+    return newsItems.map(item => ({
+      params: { lang, slug: item.slug },
+      props: { item }
+    }));
+  });
+}
+
+const { item } = Astro.props;
+const { lang } = Astro.params;
+---
+
+<BaseLayout lang={lang}>
+  <div class="py-24 bg-white dark:bg-background-dark min-h-screen">
+     <div class="mx-auto max-w-[800px] px-4">
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-black text-text-main dark:text-white leading-tight mb-8">
+          {item.title}
+        </h1>
+        
+        <div class="flex items-center gap-4 mb-8 text-sm text-text-muted dark:text-gray-400">
+          <span class="font-bold uppercase tracking-widest">{item.date}</span>
+        </div>
+        
+        <div class="aspect-video w-full overflow-hidden rounded-xl bg-gray-200 mb-12 shadow-lg">
+          <img src={item.image} alt={item.title} class="w-full h-full object-cover" />
+        </div>
+
+        <div class="prose dark:prose-invert max-w-none">
+          <div class="text-xl leading-relaxed text-text-main dark:text-gray-200 whitespace-pre-wrap">
+             {item.content}
+          </div>
+          <div class="mt-8">
+            <a href={item.original_url} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-bold rounded-full hover:bg-primary-dark transition-colors shadow-lg hover:shadow-xl">
+              {t(lang, 'viewOriginal')}
+              <span class="material-symbols-outlined text-sm">open_in_new</span>
+            </a>
+          </div>
+
+          <div class="mt-12 flex flex-col gap-4 border-y border-gray-100 dark:border-gray-800 py-8">
+            <span class="text-xs font-black uppercase tracking-widest text-text-muted">{t(lang, 'shareArticle')}</span>
+            <div class="flex gap-4">
+              <button class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center hover:opacity-80 transition-opacity">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              </button>
+              <button class="w-10 h-10 rounded-full bg-sky-500 text-white flex items-center justify-center hover:opacity-80 transition-opacity">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+              </button>
+              <button class="w-10 h-10 rounded-full bg-green-500 text-white flex items-center justify-center hover:opacity-80 transition-opacity">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.417-.003 6.557-5.338 11.892-11.893 11.892-1.997-.001-3.951-.5-5.688-1.448l-6.305 1.652zm6.599-3.835c1.516.899 3.3 1.374 5.129 1.375 5.676 0 10.293-4.615 10.296-10.293 0-2.752-1.071-5.339-3.018-7.288-1.948-1.948-4.536-3.018-7.288-3.019-5.679 0-10.296 4.617-10.299 10.293 0 1.874.502 3.702 1.442 5.31l-.97 3.546 3.708-.974zm11.776-6.619c-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.668.149-.198.297-.767.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.371-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414-.074-.124-.272-.198-.57-.347z"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
+           <a href={`/${lang}/news`} class="text-primary font-bold hover:underline">
+             {t(lang, 'backToNews')}
+           </a>
+        </div>
+     </div>
+  </div>
+</BaseLayout>

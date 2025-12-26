@@ -1,0 +1,35 @@
+---
+import { storyblokEditable } from '@storyblok/astro'
+
+const { blok } = Astro.props
+---
+
+<section {...storyblokEditable(blok)} class="relative min-h-[80vh] flex flex-col items-center justify-center px-4 pt-32 pb-20 bg-neutral-black overflow-hidden group">
+  <div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-110" style={`background-image: url("${blok.image?.filename || 'https://lh3.googleusercontent.com/aida-public/AB6AXuAjCSGD7irULIRMY8z_AiRSxbcFJbl2WSF4GRonElQneC1FsVNct8HQK7RYoEGr7ctPIHMZEy-5LAYCI5q1xkUGt8kXHzyVVgiXTQV7zBeA8awCLrl9B4flY8zSnZBo4saY0iw7PCSnGmlcufOvwGsNYXUAHINDW5ksb_f9ig6ajApaaEhDnf4_STWMOUKVMd-gCyEizu78GtFysQSRESPC_hdOfPt2rF7OoA_dYLIbRsWQaOlSw06PIWfxQiowAS8YM0t26x-8cnna'}");`}>
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-[2px]"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-primary/20 via-transparent to-neutral-black/90"></div>
+  </div>
+  
+  <div class="relative z-10 max-w-5xl mx-auto text-center flex flex-col gap-8 items-center">
+    {blok.badge && (
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/20 border border-primary/40 text-primary text-xs font-black uppercase tracking-widest mb-2 backdrop-blur-md">
+        <span class="material-symbols-outlined text-[16px]">verified</span>
+        <span>{blok.badge}</span>
+      </div>
+    )}
+    
+    <h1 class="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-[0.9] text-white drop-shadow-2xl whitespace-pre-line">
+      {blok.title || 'A Vision for\nJustice & Peace'}
+    </h1>
+    
+    <p class="text-xl md:text-2xl text-gray-300 max-w-3xl leading-relaxed font-medium">
+      {blok.description || 'We are building a roadmap for a shared future. Explore our core missions for ending the occupation, achieving social justice, and building a shared society.'}
+    </p>
+    
+    <div class="mt-12 animate-bounce">
+      <div class="p-4 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm">
+        <span class="material-symbols-outlined text-white text-3xl">arrow_downward</span>
+      </div>
+    </div>
+  </div>
+</section>

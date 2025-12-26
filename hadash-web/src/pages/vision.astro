@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import VisionHero from '../storyblok/VisionHero.astro';
+import MissionSection from '../storyblok/MissionSection.astro';
+import { t } from '../utils/i18n';
+
+const { lang = 'en' } = Astro.props;
+
+// Mock data for Vision Page until migrated to Storyblok
+const visionMissions = [
+  {
+    title: lang === 'he' ? "סיום הכיבוש" : "Ending the Occupation",
+    mission_tag: "Mission 01",
+    icon: "flag",
+    quote: "Real security can only be achieved through a just peace.",
+    points: [
+      { text: "Withdrawal to 1967 borders." },
+      { text: "Dismantling illegal settlements." },
+      { text: "Jerusalem as a shared capital." }
+    ]
+  },
+  {
+    title: lang === 'he' ? "שוויון וצדק חברתי" : "Social Justice & Equality",
+    mission_tag: "Mission 02",
+    icon: "balance",
+    quote: "Equality is not just a value, it is a necessity.",
+    points: [
+      { text: "Closing gaps in education and healthcare." },
+      { text: "Fighting for workers' rights." },
+      { text: "Opposing all forms of discrimination." }
+    ]
+  }
+];
+---
+
+<BaseLayout lang={lang}>
+  <VisionHero blok={{
+    title: t(lang, 'vision'),
+    badge: "Official Party Platform 2024",
+    description: t(lang, 'visionSubtitle')
+  }} />
+  
+  <div class="relative">
+    {visionMissions.map((mission) => (
+      <MissionSection blok={mission} />
+    ))}
+  </div>
+</BaseLayout>

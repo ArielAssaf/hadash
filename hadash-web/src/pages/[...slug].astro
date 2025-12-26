@@ -1,0 +1,42 @@
+---
+import { useStoryblokApi } from '@storyblok/astro'
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+export async function getStaticPaths() {
+  const storyblokApi = useStoryblokApi()
+
+  let { data } = await storyblokApi.get('cdn/links', {
+    version: 'draft',
+  })
+
+  let links = data.links
+  links = Object.values(links)
+
+  return links
+    .filter((link) => !link.is_folder && link.slug !== 'home' && link.slug !== 'he' && link.slug !== 'ru')
+    .map((link) => {
+      let lang = 'en'
+      if (link.slug.startsWith('he/')) lang = 'he'
+      if (link.slug.startsWith('ru/')) lang = 'ru'
+      
+      return {
+        params: { slug: link.slug },
+        props: { lang, actualSlug: link.slug },
+      }
+    })
+}
+
+const { lang, actualSlug } = Astro.props
+const storyblokApi = useStoryblokApi()
+
+const { data } = await storyblokApi.get(`cdn/stories/${actualSlug}`, {
+  version: 'draft',
+})
+
+const story = data.story
+---
+
+<BaseLayout lang={lang}>
+  <StoryblokComponent blok={story.content} />
+</BaseLayout>

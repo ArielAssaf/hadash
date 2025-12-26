@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Hadash - Mobilization Hub</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-red": "#E31B23",
+                        "primary-dark-red": "#BF151C",
+                        "background-light": "#FFFFFF",
+                        "background-dark": "#1A1A1A",
+                        "text-main": "#111111",
+                        "text-muted": "#555555",
+                    },
+                    fontFamily: {
+                        "sans": ["Rubik", "sans-serif"],
+                    },
+                    borderRadius: {
+                        'sm': '0.5rem', // 8px
+                        'md': '0.75rem', // Default, but use 8px for consistency
+                        'lg': '1.0rem', // 16px
+                        'xl': '1.5rem', // 24px
+                        'full': '9999px', // Pills/Tags
+                    },
+                    boxShadow: {
+                        'card': '0 4px 10px -2px rgba(0,0,0,0.05)',
+                        'md': '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+                        'lg': '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .filled-icon {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .animate-shimmer {
+            animation: shimmer 2s infinite;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light text-text-main font-sans min-h-screen flex flex-col selection:bg-primary-red selection:text-white antialiased">
+    <header class="sticky top-0 z-50 w-full bg-background-light/80 backdrop-blur-md border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <div class="size-8 text-primary-red">
+                        <svg fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <path clip-rule="evenodd"
+                                d="M39.475 21.6262C40.358 21.4363 40.6863 21.5589 40.7581 21.5934C40.7876 21.655 40.8547 21.857 40.8082 22.3336C40.7408 23.0255 40.4502 24.0046 39.8572 25.2301C38.6799 27.6631 36.5085 30.6631 33.5858 33.5858C30.6631 36.5085 27.6632 38.6799 25.2301 39.8572C24.0046 40.4502 23.0255 40.7407 22.3336 40.8082C21.8571 40.8547 21.6551 40.7875 21.5934 40.7581C21.5589 40.6863 21.4363 40.358 21.6262 39.475C21.8562 38.4054 22.4689 36.9657 23.5038 35.2817C24.7575 33.2417 26.5497 30.9744 28.7621 28.762C30.9744 26.5497 33.2417 24.7574 35.2817 23.5037C36.9657 22.4689 38.4054 21.8562 39.475 21.6262ZM4.41189 29.2403L18.7597 43.5881C19.8813 44.7097 21.4027 44.9179 22.7217 44.7893C24.0585 44.659 25.5148 44.1631 26.9723 43.4579C29.9052 42.0387 33.2618 39.5667 36.4142 36.4142C39.5667 33.2618 42.0387 29.9052 43.4579 26.9723C44.1631 25.5148 44.659 24.0585 44.7893 22.7217C44.9179 21.4027 44.7097 19.8813 43.5881 18.7597L29.2403 4.41187C27.8527 3.02428 25.8765 3.02573 24.2861 3.36776C22.6081 3.72863 20.7334 4.58419 18.8396 5.74801C16.4978 7.18716 13.9881 9.18353 11.5858 11.5858C9.18354 13.988 7.18717 16.4978 5.74802 18.8396C4.58421 20.7334 3.72865 22.6081 3.36778 24.2861C3.02574 25.8765 3.02429 27.8527 4.41189 29.2403Z"
+                                fill="currentColor" fill-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    <span class="text-xl font-black tracking-tight text-text-main">HADASH</span>
+                </div>
+                <div class="hidden md:flex items-center gap-8">
+                    <nav class="flex gap-6">
+                        <a class="text-sm font-medium text-text-muted hover:text-primary-red transition-colors"
+                            href="#">Home</a>
+                        <a class="text-sm font-medium text-text-muted hover:text-primary-red transition-colors"
+                            href="#">About</a>
+                        <a class="text-sm font-bold text-primary-red" href="#">MOBILIZATION HUB</a>
+                        <a class="text-sm font-medium text-text-muted hover:text-primary-red transition-colors"
+                            href="#">News</a>
+                    </nav>
+                    <button
+                        class="bg-primary-red hover:bg-primary-dark-red text-white text-sm font-black uppercase py-2.5 px-5 rounded-full shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5">
+                        Donate
+                    </button>
+                </div>
+                <button class="md:hidden text-text-main">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+        <div class="mb-16 text-center max-w-3xl mx-auto">
+            <div
+                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-red/5 text-primary-red text-xs font-black uppercase tracking-widest mb-4 border border-primary-red/20">
+                <span class="material-symbols-outlined text-sm filled-icon">bolt</span>
+                ACTION CENTER
+            </div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-text-main tracking-tight leading-tight mb-6">
+                BE THE FORCE FOR <br />
+                <span class="text-primary-red">REAL CHANGE.</span>
+            </h1>
+            <p class="text-lg text-text-muted font-normal leading-relaxed">
+                We are building a movement that cannot be ignored. Every contribution, every hour volunteered, and every
+                event attended brings us closer to a just future.
+            </p>
+        </div>
+        <div class="bg-primary-red text-white p-8 sm:p-10 lg:p-12 rounded-xl shadow-lg mb-12 transform transition-transform duration-300 hover:scale-[1.01] hover:shadow-2xl"
+            style="border-radius: 1.5rem;">
+            <div class="max-w-4xl mx-auto text-center">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white text-xs font-black uppercase tracking-widest mb-4">
+                    <span class="material-symbols-outlined text-sm filled-icon">favorite</span>
+                    PRIORITY ACTION
+                </div>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight mb-4">FUND THE
+                    MOVEMENT</h2>
+                <p class="text-lg sm:text-xl font-normal opacity-90 mb-6">Your direct support powers our grassroots
+                    operations and crucial campaigns.</p>
+                <div class="bg-white/10 rounded-lg p-5 sm:p-6 mb-8 border border-white/20">
+                    <div class="flex flex-col sm:flex-row justify-between items-end sm:items-center mb-3">
+                        <div class="flex flex-col text-left">
+                            <span class="text-xs font-medium uppercase text-white/70 mb-1">Campaign Goal</span>
+                            <span class="text-3xl sm:text-4xl font-black text-white">$45,000 <span
+                                    class="text-base sm:text-lg font-normal text-white/70">/ $56k</span></span>
+                        </div>
+                        <span class="text-xl sm:text-2xl font-black text-white">80%</span>
+                    </div>
+                    <div class="w-full bg-white/30 rounded-full h-3 overflow-hidden">
+                        <div class="bg-white h-3 rounded-full transition-all duration-1000 ease-out" style="width: 80%">
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+                    <button
+                        class="py-4 px-3 rounded-sm border border-white/20 text-white font-bold hover:bg-white/10 transition-all"
+                        style="border-radius: 0.5rem;">$25</button>
+                    <button
+                        class="py-4 px-3 rounded-sm bg-white text-primary-red font-black shadow-md transform scale-105 border border-white relative overflow-hidden"
+                        style="border-radius: 0.5rem;">
+                        $50
+                        <div
+                            class="absolute inset-0 bg-primary-red/10 backdrop-blur-sm -skew-x-12 translate-x-full animate-shimmer">
+                        </div>
+                    </button>
+                    <button
+                        class="py-4 px-3 rounded-sm border border-white/20 text-white font-bold hover:bg-white/10 transition-all"
+                        style="border-radius: 0.5rem;">$100</button>
+                    <button
+                        class="py-4 px-3 rounded-sm border border-white/20 text-white font-bold hover:bg-white/10 transition-all"
+                        style="border-radius: 0.5rem;">Other</button>
+                </div>
+                <div
+                    class="text-center text-sm font-medium text-white/80 bg-white/10 py-3 px-4 rounded-lg mb-8 border border-white/20">
+                    ✨ Your <span class="font-black text-white">$50</span> funds 200 campaign flyers.
+                </div>
+                <button
+                    class="w-full sm:w-auto min-w-[200px] py-4 px-8 bg-white hover:bg-gray-100 text-primary-red font-black uppercase rounded-full shadow-lg transition-all flex items-center justify-center gap-3">
+                    DONATE NOW
+                    <span class="material-symbols-outlined text-base">arrow_forward</span>
+                </button>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start relative pb-10">
+            <div class="group relative bg-background-light rounded-lg p-0 shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-100 flex flex-col overflow-hidden"
+                style="border-radius: 1.0rem;">
+                <div class="absolute top-0 left-0 w-full h-1.5 bg-primary-red rounded-t-lg"
+                    style="border-top-left-radius: 1.0rem; border-top-right-radius: 1.0rem;"></div>
+                <div class="p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="p-2 bg-primary-red/10 text-primary-red rounded-lg" style="border-radius: 0.5rem;">
+                            <span class="material-symbols-outlined filled-icon">handshake</span>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-text-main leading-none">JOIN THE TEAM</h2>
+                            <p class="text-xs text-text-muted mt-1 font-medium">Step 1 of 3: Intro</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 border border-gray-100 rounded-lg p-5">
+                        <div class="flex gap-1.5 mb-6 justify-center">
+                            <div class="w-8 h-1.5 rounded-full bg-primary-red"></div>
+                            <div class="w-1.5 h-1.5 rounded-full bg-gray-300"></div>
+                            <div class="w-1.5 h-1.5 rounded-full bg-gray-300"></div>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <label
+                                    class="block text-xs font-black text-text-main uppercase mb-1.5 tracking-widest">Your
+                                    Location</label>
+                                <div class="relative group/input">
+                                    <span
+                                        class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-muted group-focus-within/input:text-primary-red transition-colors">location_on</span>
+                                    <input
+                                        class="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-sm text-sm text-text-main placeholder:text-text-muted focus:ring-2 focus:ring-primary-red/20 focus:border-primary-red outline-none transition-all shadow-sm"
+                                        placeholder="Zip Code or City" style="border-radius: 0.5rem;" type="text" />
+                                </div>
+                            </div>
+                            <div>
+                                <label
+                                    class="block text-xs font-black text-text-main uppercase mb-2 tracking-widest">Interests
+                                    (Select all)</label>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <label class="cursor-pointer relative">
+                                        <input checked="" class="peer sr-only" type="checkbox" />
+                                        <div class="p-2.5 rounded-sm border border-gray-200 bg-white text-xs font-medium text-text-muted peer-checked:border-primary-red peer-checked:bg-primary-red/10 peer-checked:text-primary-red transition-all flex items-center justify-center gap-1.5"
+                                            style="border-radius: 0.5rem;">
+                                            <span class="material-symbols-outlined text-[16px]">call</span> PHONE BANK
+                                        </div>
+                                    </label>
+                                    <label class="cursor-pointer relative">
+                                        <input class="peer sr-only" type="checkbox" />
+                                        <div class="p-2.5 rounded-sm border border-gray-200 bg-white text-xs font-medium text-text-muted peer-checked:border-primary-red peer-checked:bg-primary-red/10 peer-checked:text-primary-red transition-all flex items-center justify-center gap-1.5"
+                                            style="border-radius: 0.5rem;">
+                                            <span class="material-symbols-outlined text-[16px]">directions_walk</span>
+                                            CANVASS
+                                        </div>
+                                    </label>
+                                    <label class="cursor-pointer relative">
+                                        <input class="peer sr-only" type="checkbox" />
+                                        <div class="p-2.5 rounded-sm border border-gray-200 bg-white text-xs font-medium text-text-muted peer-checked:border-primary-red peer-checked:bg-primary-red/10 peer-checked:text-primary-red transition-all flex items-center justify-center gap-1.5"
+                                            style="border-radius: 0.5rem;">
+                                            <span class="material-symbols-outlined text-[16px]">edit_note</span> ADMIN
+                                        </div>
+                                    </label>
+                                    <label class="cursor-pointer relative">
+                                        <input class="peer sr-only" type="checkbox" />
+                                        <div class="p-2.5 rounded-sm border border-gray-200 bg-white text-xs font-medium text-text-muted peer-checked:border-primary-red peer-checked:bg-primary-red/10 peer-checked:text-primary-red transition-all flex items-center justify-center gap-1.5"
+                                            style="border-radius: 0.5rem;">
+                                            <span class="material-symbols-outlined text-[16px]">groups</span> HOST
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <button
+                            class="mt-6 w-full py-3 bg-primary-red hover:bg-primary-dark-red text-white font-black uppercase rounded-sm transition-all flex justify-between items-center px-4 shadow-md hover:shadow-lg"
+                            style="border-radius: 0.5rem;">
+                            <span>NEXT STEP</span>
+                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="group relative bg-background-light rounded-lg shadow-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-100 flex flex-col h-full"
+                    style="border-radius: 1.0rem;">
+                    <div class="p-6 pb-0">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="p-2 bg-primary-red/10 text-primary-red rounded-lg"
+                                    style="border-radius: 0.5rem;">
+                                    <span class="material-symbols-outlined filled-icon">calendar_month</span>
+                                </div>
+                                <h2 class="text-xl font-bold text-text-main">EVENTS</h2>
+                            </div>
+                            <a class="text-xs font-bold text-primary-red hover:underline uppercase tracking-widest"
+                                href="#">VIEW CALENDAR</a>
+                        </div>
+                    </div>
+                    <div class="flex-1 p-6 pt-2 flex flex-col gap-4">
+                        <div
+                            class="flex flex-col gap-3 p-4 rounded-lg border border-gray-100 bg-white hover:border-primary-red/20 hover:bg-primary-red/5 transition-all group/event">
+                            <div class="flex justify-between items-start">
+                                <div class="flex gap-4">
+                                    <div class="flex flex-col items-center justify-center w-12 h-14 bg-gray-50 border border-gray-200 rounded-sm shrink-0"
+                                        style="border-radius: 0.5rem;">
+                                        <span
+                                            class="text-[10px] font-black text-text-muted uppercase tracking-widest">Oct</span>
+                                        <span class="text-xl font-black text-text-main leading-none">12</span>
+                                    </div>
+                                    <div>
+                                        <h3
+                                            class="font-bold text-text-main leading-tight group-hover/event:text-primary-red transition-colors">
+                                            Peace Rally Tel Aviv</h3>
+                                        <div class="flex items-center gap-1 mt-1 text-xs text-text-muted font-medium">
+                                            <span class="material-symbols-outlined text-[14px]">location_on</span>
+                                            Rabin Square
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-gray-300 group-hover/event:text-primary-red transition-colors">
+                                    <span class="material-symbols-outlined">event_available</span>
+                                </div>
+                            </div>
+                            <button
+                                class="w-full py-2 mt-1 rounded-sm bg-primary-red hover:bg-primary-dark-red text-white text-xs font-black uppercase tracking-wide transition-colors shadow-md hover:shadow-lg"
+                                style="border-radius: 0.5rem;">
+                                RSVP NOW
+                            </button>
+                        </div>
+                        <div
+                            class="flex flex-col gap-3 p-4 rounded-lg border border-gray-100 bg-white hover:border-primary-red/20 hover:bg-primary-red/5 transition-all group/event">
+                            <div class="flex justify-between items-start">
+                                <div class="flex gap-4">
+                                    <div class="flex flex-col items-center justify-center w-12 h-14 bg-gray-50 border border-gray-200 rounded-sm shrink-0"
+                                        style="border-radius: 0.5rem;">
+                                        <span
+                                            class="text-[10px] font-black text-text-muted uppercase tracking-widest">Oct</span>
+                                        <span class="text-xl font-black text-text-main leading-none">14</span>
+                                    </div>
+                                    <div>
+                                        <h3
+                                            class="font-bold text-text-main leading-tight group-hover/event:text-primary-red transition-colors">
+                                            Virtual Town Hall</h3>
+                                        <div class="flex items-center gap-1 mt-1 text-xs text-text-muted font-medium">
+                                            <span class="material-symbols-outlined text-[14px]">videocam</span>
+                                            Zoom / Online
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-gray-300 group-hover/event:text-primary-red transition-colors">
+                                    <span class="material-symbols-outlined">event_available</span>
+                                </div>
+                            </div>
+                            <button
+                                class="w-full py-2 mt-1 rounded-sm bg-primary-red hover:bg-primary-dark-red text-white text-xs font-black uppercase tracking-wide transition-colors shadow-md hover:shadow-lg"
+                                style="border-radius: 0.5rem;">
+                                RSVP NOW
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="border-t border-gray-100 bg-background-light py-10 mt-auto">
+        <div
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <span class="font-black text-text-main uppercase tracking-tight">HADASH</span>
+                <p class="text-sm text-text-muted mt-1 font-normal">Building a better future for everyone.</p>
+            </div>
+            <div class="flex gap-6 text-sm font-medium text-text-muted">
+                <a class="hover:text-primary-red transition-colors" href="#">Privacy</a>
+                <a class="hover:text-primary-red transition-colors" href="#">Terms</a>
+                <a class="hover:text-primary-red transition-colors" href="#">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

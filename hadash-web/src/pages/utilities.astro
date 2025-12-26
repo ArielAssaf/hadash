@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LegislativeList from '../storyblok/LegislativeList.astro';
+import { t } from '../utils/i18n';
+
+const { lang = 'en' } = Astro.props;
+
+const mockLegislative = {
+  title: t(lang, 'utilities'),
+  badge: "75+ Laws Passed",
+  categories: [
+    { 
+      name: "Workers' Rights", 
+      icon: "work", 
+      items: [
+        { title: "Anti-Security Checks", description: "Prohibits employers from taking security checks from employees." },
+        { title: "Knesset Law", description: "Mandatory reporting on gender pay gaps." }
+      ] 
+    },
+    {
+      name: "Environment",
+      icon: "eco",
+      items: [
+        { title: "Clean Air Act", description: "Comprehensive regulation of pollutant emissions." }
+      ]
+    }
+  ]
+};
+---
+
+<BaseLayout lang={lang}>
+  <div class="pt-20">
+    <LegislativeList blok={mockLegislative} />
+  </div>
+</BaseLayout>

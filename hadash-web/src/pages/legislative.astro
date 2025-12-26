@@ -1,0 +1,74 @@
+---
+import { useStoryblokApi } from '@storyblok/astro'
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import LegislativeList from '../storyblok/LegislativeList.astro'
+import { t } from '../utils/i18n';
+
+const { lang = 'en' } = Astro.props;
+
+// Mock data (fallback) same as used in migration script + index.astro
+const matzahadashData = {
+    laws_passed: "50+",
+    laws_text: lang === 'he' ? "חוקים שהעברנו או פסלנו" : "Laws passed or blocked",
+};
+
+const mockLegislative = {
+    title: lang === 'he' ? "פעילות פרלמנטרית" : (lang === 'ru' ? "Законодательство" : "Legislation & Achievements"),
+    badge: lang === 'he' ? "הישגים מוכחים" : "Proven Achievements",
+    categories: [
+         { 
+            name: lang === 'he' ? "הישגים מרכזיים" : "Key Achievements", icon: "emoji_events",
+            items: [
+                { title: lang === 'he' ? "חוקים" : "Laws", description: `${matzahadashData.laws_passed} ${matzahadashData.laws_text}` },
+                { title: lang === 'he' ? "פעילות ועדות" : "Committee Activity", description: lang === 'he' ? "נוכחות והשפעה מובילה בוועדות הכספים, העבודה והרווחה." : "Leading presence and influence in Finance, Labor and Welfare committees." }
+            ] 
+        },
+         { 
+            name: lang === 'he' ? "בלימת חקיקה" : "Blocking Legislation", icon: "block",
+            items: [
+                { title: lang === 'he' ? "עצירת חוקים גזעניים" : "Stopping Racist Laws", description: lang === 'he' ? "ניהול מאבק עיקש ומוצלח נגד חוקים מפלים." : "Persistent and successful struggle against discriminatory laws." }
+            ] 
+        }
+    ]
+};
+
+let story = null;
+try {
+  const storyblokApi = useStoryblokApi()
+  // Try to fetch 'legislative' story first
+  try {
+      const { data } = await storyblokApi.get('cdn/stories/legislative', {
+        version: 'draft',
+        language: lang === 'en' ? '' : lang,
+      });
+      story = data.story;
+  } catch (e) {
+      // If not found, try 'home' story and extract legislative_list
+      try {
+          const { data } = await storyblokApi.get('cdn/stories/home', {
+            version: 'draft',
+            language: lang === 'en' ? '' : lang,
+          });
+          const legBlock = data.story.content.body?.find((b: any) => b.component === 'legislative_list');
+          if (legBlock) {
+              story = { content: { component: 'page', body: [legBlock] } };
+          }
+      } catch (err) {
+          console.log(`No legislative data found in Home fallback`);
+      }
+  }
+} catch (e) {
+  // console.log(`No legislative story found for ${lang}`);
+}
+---
+
+<BaseLayout lang={lang}>
+  <div class="pt-20"> <!-- Spacer for fixed header -->
+    {story ? (
+       <StoryblokComponent blok={story.content} />
+    ) : (
+       <LegislativeList blok={mockLegislative} />
+    )}
+  </div>
+</BaseLayout>

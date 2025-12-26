@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EventList from '../storyblok/EventList.astro';
+import { t } from '../utils/i18n';
+
+const { lang = 'en' } = Astro.props;
+
+const mockEvents = {
+  title: t(lang, 'action'),
+  description: lang === 'he' ? "הצטרפו אלינו בשטח. הפגנות, עצרות ומפגשים קהילתיים." : "Join us on the ground. Rallies, protests, and community gatherings.",
+  events: [
+    {
+      title: lang === 'he' ? "צעדת השוויון" : "Equality March",
+      date: "24 OCT",
+      location: "Tel Aviv",
+      description: lang === 'he' ? "צעדה המונית למען שוויון אזרחי מלא." : "Mass march calling for full civil equality for all citizens.",
+      image: { filename: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB6czdVAdRIYITT1gKKvOr-eqIvh5ZEcO5E8UXFPVlYX3C95Angatef4PRb4Fy90Yk2DRv_117ET7QOuBYvojhjPy0pR3lQnlDNkyrHTyckQe1uo0qHDCTjBCt3oALSRbiG47B8NE_KJ9CYfJsI4ifjuKlr4qrVPFU0_gP_0ae_pfTB6hB6SQKkvnpwmh2B-1isykuGa1fZOh152PH2FFd4eTfrs6gOL20Y7mmMfVXfOkQ__O0ZYTM2FarymW9yimnXaKE2HDRupNV8' }
+    },
+    {
+      title: lang === 'he' ? "כנס חירום: הגנת הדמוקרטיה" : "Emergency Conference: Defending Democracy",
+      date: "02 NOV",
+      location: "Haifa",
+      description: lang === 'he' ? "דיון דחוף על החוקים האנטי-דמוקרטיים החדשים." : "Urgent discussion on the new anti-democratic legislation.",
+      image: { filename: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBfCOQnFJDko2MVRCvFPULH9OE9ixXvn5HN4re40-OpCkhmhiTDwiYtLNbDkpvMhyhcGnsbjhgO4HqskrH6HPXIsquyZtdhOPXN6QJkBYG2RMjL6YhofHZXCs_24FIAhymWtPFnRXZvnCkL9JpPI6TE-cQo4MWA29vWCMmA0yqo3QnCk6q-mnJsFI5ubycMOg9jUGPJGCo-yTnmhkMwwqUITwBxYg6uIWpnTxUxuux5FrOqvpQM9QauCOSeDSLqpZcZnne7yB5z19rj' }
+    }
+  ]
+};
+---
+
+<BaseLayout lang={lang}>
+  <div class="pt-20">
+    <EventList blok={mockEvents} />
+  </div>
+</BaseLayout>
