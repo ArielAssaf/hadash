@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import { newsItems } from '../../../../data/news';
-import { locales, t } from '../../../../utils/i18n';
+import { locales, t, getLocalizedPath } from '../../../../utils/i18n';
 
 export async function getStaticPaths() {
   return locales.flatMap(lang => {
@@ -59,7 +59,7 @@ const { lang } = Astro.params;
         </div>
         
         <div class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
-           <a href={`/${lang}/news`} class="text-primary font-bold hover:underline">
+           <a href={getLocalizedPath('/news', lang)} class="text-primary font-bold hover:underline">
              {t(lang, 'backToNews')}
            </a>
         </div>

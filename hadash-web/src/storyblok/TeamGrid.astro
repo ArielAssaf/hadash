@@ -14,34 +14,42 @@ const { blok } = Astro.props
     </div>
     
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-      {blok.members?.map((member: any) => (
-        <div class="group flex flex-col bg-gray-50 dark:bg-white/5 rounded-3xl overflow-hidden shadow-lg border border-transparent hover:border-primary/30 transition-all duration-300">
-          <div class="aspect-[4/5] relative overflow-hidden">
-             <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity z-10"></div>
-             <img 
-               src={member.image?.filename || 'https://images.placeholder.com/400x500'} 
-               alt={member.name}
-               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-             />
+      {blok.members?.map((member: any) => {
+        const CardContent = (
+          <div class="group flex flex-col bg-gray-50 dark:bg-white/5 rounded-3xl overflow-hidden shadow-lg border border-transparent hover:border-primary/30 transition-all duration-300 h-full">
+            <div class="aspect-[4/5] relative overflow-hidden">
+               <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity z-10"></div>
+               <img 
+                 src={member.image?.filename || 'https://images.placeholder.com/400x500'} 
+                 alt={member.name}
+                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+               />
+            </div>
+            <div class="p-6 flex flex-col gap-2">
+              <h3 class="text-xl font-black text-text-main dark:text-white uppercase leading-tight group-hover:text-primary transition-colors">
+                {member.name}
+              </h3>
+              <span class="text-xs font-bold text-primary uppercase tracking-widest">{member.role || 'Candidate'}</span>
+              <p class="text-sm text-text-muted dark:text-gray-400 mt-2 leading-relaxed">
+                {member.bio}
+              </p>
+              {member.quote && (
+                <div class="mt-4 pt-4 border-t border-gray-200 dark:border-white/10">
+                  <p class="text-xs italic text-text-main dark:text-white font-medium">
+                    "{member.quote}"
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
-          <div class="p-6 flex flex-col gap-2">
-            <h3 class="text-xl font-black text-text-main dark:text-white uppercase leading-tight group-hover:text-primary transition-colors">
-              {member.name}
-            </h3>
-            <span class="text-xs font-bold text-primary uppercase tracking-widest">{member.role || 'Candidate'}</span>
-            <p class="text-sm text-text-muted dark:text-gray-400 mt-2 line-clamp-3 leading-relaxed">
-              {member.bio}
-            </p>
-            {member.quote && (
-              <div class="mt-4 pt-4 border-t border-gray-200 dark:border-white/10">
-                <p class="text-xs italic text-text-main dark:text-white font-medium">
-                  "{member.quote}"
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
-      )) || (
+        );
+
+        return member.link?.url || member.link?.cached_url ? (
+          <a href={member.link.url || `/${blok.lang || 'en'}/${member.link.cached_url}`} class="block">
+            {CardContent}
+          </a>
+        ) : CardContent;
+      }) || (
         <p class="text-center col-span-full opacity-50 italic">No team members added yet.</p>
       )}
     </div>

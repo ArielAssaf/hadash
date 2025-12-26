@@ -14,7 +14,7 @@ Config: Set server: { https: true } in astro.config.mjs.
 The Bridge: Ensure the Storyblok Bridge is initialized in the local environment so clicking on a component in the Storyblok UI highlights the corresponding code in  .
 
 Environment Variables: Store your STORYBLOK_TOKEN in a .env file. Never commit this file.
-
+    
 3. Component-First Development
 We follow a "schema-first" approach. Every visual element on the site must have a corresponding "Blok" in Storyblok and a component in Astro.
 

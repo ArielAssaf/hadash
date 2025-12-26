@@ -136,6 +136,7 @@ export function t(locale: string, key: keyof typeof translations['en']) {
 }
 
 export function getLocalizedPath(path: string, locale: string) {
-    if (locale === defaultLocale) return path;
-    return `/${locale}${path === '/' ? '' : path}`;
+    const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+    const localizedPath = locale === defaultLocale ? path : `/${locale}${path === '/' ? '' : path}`;
+    return `${base}${localizedPath}`;
 }

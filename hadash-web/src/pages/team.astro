@@ -8,10 +8,34 @@ const { lang = 'en' } = Astro.props;
 const mockTeam = {
   title: t(lang, 'team'),
   members: [
-    { name: "Ayman Odeh", role: "Leader", bio: "Advocate for Jewish-Arab partnership.", quote: "End the occupation, build a shared future." },
-    { name: "Aida Touma-Sliman", role: "MP", bio: "Feminist activist and legislator.", quote: "Equality is the foundation of peace." },
-    { name: "Ofer Cassif", role: "MP", bio: "Academic and peace activist.", quote: "The occupation is a disaster for both peoples." },
-    { name: "Youssef Jabareen", role: "MP", bio: "Legal scholar and civil rights expert.", quote: "Justice must be served for all." }
+    { 
+      name: lang === 'he' ? "איימן עודה" : "Ayman Odeh", 
+      role: lang === 'he' ? "יו\"ר הרשימה" : "List Leader", 
+      bio: lang === 'he' ? "עו”ד איימן עודה מוביל את רשימת חד”ש. כיהן כחבר מועצת העיר חיפה והיה ממנהיגי המאבק להכרה בכפרים הבלתי מוכרים בנגב. נבחר למזכיר הארצי של חד”ש בשנת 2006." : "Advocate for Jewish-Arab partnership and leader of the Hadash list.", 
+      image: { filename: "http://hadash.org.il/wp-content/uploads/AIMAN.jpg" },
+      quote: lang === 'he' ? "לא הסתגרות לאומית אלא הושטת יד לשותפות יהודית-ערבית רחבה." : "Not national seclusion, but reaching out for a broad Jewish-Arab partnership." 
+    },
+    { 
+      name: lang === 'he' ? "עאידה תומא-סלימאן" : "Aida Touma-Sliman", 
+      role: lang === 'he' ? "חברת כנסת" : "Member of Knesset", 
+      bio: lang === 'he' ? "פעילה פמיניסטית בולטת, מייסדת עמותת “נשים נגד אלימות” ועורכת לשעבר של העיתון “אל-אתיחאד”. האישה הראשונה שעמדה בראש מערכת עיתון יומי בישראל." : "Prominent feminist activist, founder of 'Women Against Violence', and former editor of Al-Ittihad.", 
+      image: { filename: "http://hadash.org.il/wp-content/uploads/AIDA2.jpg" },
+      quote: lang === 'he' ? "המאבק נגד אלימות כלפי נשים הוא בלב הפעילות שלי." : "The struggle against violence against women is at the heart of my activity." 
+    },
+    { 
+      name: lang === 'he' ? "עופר כסיף" : "Ofer Cassif", 
+      role: lang === 'he' ? "חבר כנסת" : "Member of Knesset", 
+      bio: lang === 'he' ? "ד”ר עופר כסיף הוא מרצה למדע המדינה וחבר הנהגת מק”י וחד”ש. היה הסרבן הראשון באינתיפאדה הראשונה ועוזר פרלמנטרי לח”כ מאיר וילנר." : "Academic and political activist, senior member of CPI and Hadash.", 
+      image: { filename: "http://hadash.org.il/wp-content/uploads/OFER.jpg" },
+      quote: lang === 'he' ? "הכיבוש הוא אסון לשני העמים." : "The occupation is a disaster for both peoples." 
+    },
+    { 
+      name: lang === 'he' ? "יוסף ג’בארין" : "Youssef Jabareen", 
+      role: lang === 'he' ? "חבר כנסת לשעבר" : "Former MK", 
+      bio: lang === 'he' ? "ד”ר יוסף ג’בארין הוא משפטן ומרצה למשפטים. עומד בראש מרכז דיראסאת למשפט ומדיניות ופעיל בולט לקידום זכויות אדם ושוויון." : "Legal scholar and expert on human rights and minority rights.", 
+      image: { filename: "http://hadash.org.il/wp-content/uploads/JABARIN4.jpg" },
+      quote: lang === 'he' ? "צדק ושוויון הם הבסיס לחברה דמוקרטית." : "Justice and equality are the foundation of a democratic society." 
+    }
   ]
 };
 ---

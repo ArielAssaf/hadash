@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { newsItems } from '../../../data/news';
-import { locales, t } from '../../../utils/i18n';
+import { locales, t, getLocalizedPath } from '../../../utils/i18n';
 
 export async function getStaticPaths({ paginate }) {
   return locales.flatMap(lang => {
@@ -30,18 +30,18 @@ const { lang } = Astro.params;
         {page.data.map((article) => (
           <article class="flex flex-col gap-6 group">
              <div class="aspect-[16/10] w-full overflow-hidden rounded-xl bg-gray-200 relative shadow-md">
-                <a href={`/${lang}/news/story/${article.slug}`}>
+                <a href={getLocalizedPath(`/news/story/${article.slug}`, lang)}>
                   <div class="h-full w-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style={`background-image: url("${article.image}")`}></div>
                 </a>
              </div>
              <div class="flex flex-col gap-4">
                 <h3 class="text-2xl font-black leading-tight text-text-main dark:text-white group-hover:text-primary transition-colors">
-                  <a href={`/${lang}/news/story/${article.slug}`}>{article.title}</a>
+                  <a href={getLocalizedPath(`/news/story/${article.slug}`, lang)}>{article.title}</a>
                 </h3>
                 <p class="text-sm text-text-muted dark:text-gray-400 line-clamp-3 leading-relaxed">
                   {article.excerpt}
                 </p>
-                <a href={`/${lang}/news/story/${article.slug}`} class="text-xs font-black uppercase tracking-widest text-primary border-b-2 border-primary/20 hover:border-primary transition-all pb-1 w-fit">
+                <a href={getLocalizedPath(`/news/story/${article.slug}`, lang)} class="text-xs font-black uppercase tracking-widest text-primary border-b-2 border-primary/20 hover:border-primary transition-all pb-1 w-fit">
                  {t(lang, 'readMore')}
                 </a>
              </div>

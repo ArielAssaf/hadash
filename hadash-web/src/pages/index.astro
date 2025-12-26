@@ -34,15 +34,51 @@ try {
           lang: lang,
           title: t(lang, 'latestUpdates'),
           view_all_label: t(lang, 'viewAllNews'),
-          view_all_link: `/${lang}/news`,
+          view_all_link: getLocalizedPath('/news', lang),
           articles: newsItems.slice(0, 3).map(item => ({
             title: item.title,
             image: { filename: item.image },
             category: 'News',
             description: '',
-            link: { cached_url: `/${lang}/news/story/${item.slug}` },
+            link: { cached_url: getLocalizedPath(`/news/story/${item.slug}`, lang) },
             original_url: item.original_url
           }))
+        };
+      }
+      if (blok.component === 'team_grid') {
+        return {
+          ...blok,
+          title: lang === 'he' ? "הצוות שלנו" : (lang === 'ru' ? "Наша команда" : "Our Team"),
+          members: [
+            { 
+              name: lang === 'he' ? "איימן עודה" : "Ayman Odeh", 
+              role: lang === 'he' ? "יו\"ר הרשימה" : "List Leader", 
+              bio: lang === 'he' ? "עו”ד איימן עודה מוביל את רשימת חד”ש והיה ממנהיגי המאבק להכרה בכפרים הבלתי מוכרים בנגב." : "Advocate for Jewish-Arab partnership and leader of the Hadash list.",
+              image: { filename: "http://hadash.org.il/wp-content/uploads/AIMAN.jpg" },
+              link: { url: "https://www.facebook.com/AymanOdeh1975" }
+            },
+            { 
+              name: lang === 'he' ? "עאידה תומא-סלימאן" : "Aida Touma-Sliman", 
+              role: lang === 'he' ? "חברת כנסת" : "Member of Knesset", 
+              bio: lang === 'he' ? "פעילה פמיניסטית בולטת, מייסדת עמותת “נשים נגד אלימות” ועורכת לשעבר של העיתון “אל-אתיחאד”." : "Prominent feminist activist, founder of 'Women Against Violence', and former editor of Al-Ittihad.",
+              image: { filename: "http://hadash.org.il/wp-content/uploads/AIDA2.jpg" },
+              link: { url: "https://www.facebook.com/aidatuma" }
+            },
+            { 
+              name: lang === 'he' ? "עופר כסיף" : "Ofer Cassif", 
+              role: lang === 'he' ? "חבר כנסת" : "Member of Knesset", 
+              bio: lang === 'he' ? "ד”ר עופר כסיף הוא מרצה למדע המדינה וחבר הנהגת מק”י וחד”ש." : "Academic and political activist, senior member of CPI and Hadash.",
+              image: { filename: "http://hadash.org.il/wp-content/uploads/OFER.jpg" },
+              link: { url: "https://www.facebook.com/ofercass/" }
+            },
+            { 
+              name: lang === 'he' ? "יוסף ג’בארין" : "Youssef Jabareen", 
+              role: lang === 'he' ? "חבר כנסת לשעבר" : "Former MK", 
+              bio: lang === 'he' ? "ד”ר יוסף ג’בארין הוא משפטן ומרצה למשפטים, פעיל בולט לקידום זכויות אדם." : "Legal scholar and expert on human rights and minority rights.",
+              image: { filename: "http://hadash.org.il/wp-content/uploads/JABARIN4.jpg" },
+              link: { url: "http://www.facebook.com/AlJabha" }
+            }
+          ]
         };
       }
       return blok;
@@ -86,13 +122,13 @@ const mockHero = {
       <News blok={{
         title: t(lang, 'latestUpdates'),
         view_all_label: t(lang, 'viewAllNews'),
-        view_all_link: `/${lang}/news`,
+        view_all_link: getLocalizedPath('/news', lang),
         articles: newsItems.slice(0, 3).map(item => ({
           title: item.title,
           image: { filename: item.image },
           category: 'News',
           description: '',
-          link: { cached_url: `/${lang}/news/story/${item.slug}` },
+          link: { cached_url: getLocalizedPath(`/news/story/${item.slug}`, lang) },
           original_url: item.original_url
         }))
       }} lang={lang} />
@@ -100,8 +136,34 @@ const mockHero = {
       <TeamGrid blok={{
         title: lang === 'he' ? "הצוות שלנו" : (lang === 'ru' ? "Наша команда" : "Our Team"),
         members: [
-          { name: "Ayman Odeh", role: "Leader", bio: "Advocate for Jewish-Arab partnership.", quote: "End the occupation, build a shared future." },
-          { name: "Aida Touma-Sliman", role: "MP", bio: "Feminist activist and legislator.", quote: "Equality is the foundation of peace." }
+          { 
+            name: lang === 'he' ? "איימן עודה" : "Ayman Odeh", 
+            role: lang === 'he' ? "יו\"ר הרשימה" : "List Leader", 
+            bio: lang === 'he' ? "עו”ד איימן עודה מוביל את רשימת חד”ש והיה ממנהיגי המאבק להכרה בכפרים הבלתי מוכרים בנגב." : "Advocate for Jewish-Arab partnership and leader of the Hadash list.",
+            image: { filename: "http://hadash.org.il/wp-content/uploads/AIMAN.jpg" },
+            link: { url: "https://www.facebook.com/AymanOdeh1975" }
+          },
+          { 
+            name: lang === 'he' ? "עאידה תומא-סלימאן" : "Aida Touma-Sliman", 
+            role: lang === 'he' ? "חברת כנסת" : "Member of Knesset", 
+            bio: lang === 'he' ? "פעילה פמיניסטית בולטת, מייסדת עמותת “נשים נגד אלימות” ועורכת לשעבר של העיתון “אל-אתיחאד”." : "Prominent feminist activist, founder of 'Women Against Violence', and former editor of Al-Ittihad.",
+            image: { filename: "http://hadash.org.il/wp-content/uploads/AIDA2.jpg" },
+            link: { url: "https://www.facebook.com/aidatuma" }
+          },
+          { 
+            name: lang === 'he' ? "עופר כסיף" : "Ofer Cassif", 
+            role: lang === 'he' ? "חבר כנסת" : "Member of Knesset", 
+            bio: lang === 'he' ? "ד”ר עופר כסיף הוא מרצה למדע המדינה וחבר הנהגת מק”י וחד”ש." : "Academic and political activist, senior member of CPI and Hadash.",
+            image: { filename: "http://hadash.org.il/wp-content/uploads/OFER.jpg" },
+            link: { url: "https://www.facebook.com/ofercass/" }
+          },
+          { 
+            name: lang === 'he' ? "יוסף ג’בארין" : "Youssef Jabareen", 
+            role: lang === 'he' ? "חבר כנסת לשעבר" : "Former MK", 
+            bio: lang === 'he' ? "ד”ר יוסף ג’בארין הוא משפטן ומרצה למשפטים, פעיל בולט לקידום זכויות אדם." : "Legal scholar and expert on human rights and minority rights.",
+            image: { filename: "http://hadash.org.il/wp-content/uploads/JABARIN4.jpg" },
+            link: { url: "http://www.facebook.com/AlJabha" } // Redirecting to general Hadash for Jabareen
+          }
         ]
       }} />
 
