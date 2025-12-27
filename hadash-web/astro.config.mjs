@@ -1,3 +1,4 @@
+// Deployment trigger
 import { defineConfig } from 'astro/config'
 import storyblok from '@storyblok/astro'
 import { loadEnv } from 'vite'
