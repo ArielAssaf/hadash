@@ -1,0 +1,8 @@
+---
+import { parse } from 'marked'
+
+const { content } = Astro.props
+const html = parse(content)
+---
+
+<div class="prose prose-lg dark:prose-invert max-w-none" set:html={html} />

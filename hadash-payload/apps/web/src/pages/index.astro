@@ -1,0 +1,12 @@
+---
+import { getPayloadPage } from '../utils/payload'
+import BlockRenderer from '../components/payload/BlockRenderer.astro'
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+const { lang = 'en' } = Astro.props;
+const page = await getPayloadPage('index', lang)
+---
+
+<BaseLayout lang={lang}>
+  <BlockRenderer content={page?.layout} lang={lang} />
+</BaseLayout>

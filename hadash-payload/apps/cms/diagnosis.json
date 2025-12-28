@@ -1,0 +1,1 @@
+{"collections":["users","media","pages","payload-kv","payload-locked-documents","payload-preferences","payload-migrations"],"checks":{"users":{"success":true,"count":1},"pages":{"success":true,"count":4},"media":{"success":true,"count":0}}}

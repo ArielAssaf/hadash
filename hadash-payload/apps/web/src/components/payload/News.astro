@@ -1,0 +1,115 @@
+---
+import { t } from '../../utils/i18n'
+import { getPayloadUrl, getPayloadPosts } from '../../utils/payload'
+
+const { block, lang = 'en' } = Astro.props;
+
+let articles = block?.articles;
+if (!articles || articles.length === 0) {
+    articles = await getPayloadPosts(lang, 10);
+}
+
+console.log(`[News.astro] Rendering for lang: ${lang}, block available: ${!!block}, articles: ${articles?.length}`)
+---
+
+<div class="bg-gray-50 dark:bg-[#151515] py-24 transition-colors">
+  <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+    <div class="mb-12 flex items-center justify-between">
+      <div class="flex flex-col gap-2">
+        <h2 class="text-3xl md:text-4xl font-black text-text-main dark:text-white uppercase tracking-tight">
+          {block.title || t(lang, 'latestUpdates')}
+        </h2>
+        <div class="h-1.5 w-20 bg-primary"></div>
+      </div>
+      <a class="hidden text-sm font-black uppercase tracking-widest text-primary hover:text-primary-dark sm:flex items-center gap-2 group transition-all" href={block.view_all_link || '#'}>
+        {block.view_all_label || t(lang, 'viewAllNews')}
+        <span class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform rtl:group-hover:-translate-x-1">arrow_forward</span>
+      </a>
+    </div>
+    <div class="relative group/carousel">
+      <button 
+        id="prev-btn"
+        class="absolute -left-4 top-1/2 -translate-y-1/2 z-30 bg-white dark:bg-zinc-800 p-2 rounded-full shadow-xl border border-gray-100 dark:border-zinc-700 opacity-0 group-hover/carousel:opacity-100 transition-all hover:scale-110 hidden lg:flex items-center justify-center text-primary rtl:-right-4 rtl:left-auto"
+        aria-label="Previous"
+      >
+        <span class="material-symbols-outlined transition-transform rtl:rotate-180">chevron_left</span>
+      </button>
+
+      <div id="news-scroll" class="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 -mx-4 px-4 sm:px-0 scrollbar-hide scroll-smooth" style="scrollbar-width: none; -ms-overflow-style: none;">
+        {articles?.map((article: any) => (
+          <article class="snap-start shrink-0 w-[280px] sm:w-[320px] flex flex-col gap-4 group/card">
+            <div class="aspect-[16/10] w-full overflow-hidden rounded-xl bg-gray-200 relative shadow-md">
+              <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover/card:opacity-100 transition-opacity z-10"></div>
+              <div class="h-full w-full bg-cover bg-center transition-transform duration-700 group-hover/card:scale-110" style={`background-image: url('${getPayloadUrl(article.image?.url || article.image)}');`}></div>
+              <div class="absolute top-4 left-4 z-20">
+                <span class="px-3 py-1 bg-white/90 dark:bg-black/80 backdrop-blur-sm text-[10px] font-black uppercase tracking-widest text-primary rounded-full border border-primary/20">
+                  {article.category || 'Politics'}
+                </span>
+              </div>
+            </div>
+            <div class="flex flex-col gap-2">
+              <h3 class="text-lg font-black leading-tight text-text-main dark:text-white group-hover/card:text-primary transition-colors">
+                <a href={article.slug ? `/${lang}/news/${article.slug}` : (article.link || '#')}>{article.title || 'Unknown Title'}</a>
+              </h3>
+              <p class="text-sm text-text-muted dark:text-gray-400 line-clamp-2 leading-relaxed">
+                {article.excerpt || article.description}
+              </p>
+              <div class="mt-1">
+                 <a href={article.slug ? `/${lang}/news/${article.slug}` : (article.link || '#')} class="text-[10px] font-black uppercase tracking-widest text-primary border-b-2 border-primary/20 hover:border-primary transition-all pb-1">
+                   {t(lang, 'readMore')}
+                 </a>
+              </div>
+            </div>
+          </article>
+        )) || (
+          <p class="text-center w-full opacity-50 italic">No updates found.</p>
+        )}
+      </div>
+
+      <button 
+        id="next-btn"
+        class="absolute -right-4 top-1/2 -translate-y-1/2 z-30 bg-white dark:bg-zinc-800 p-2 rounded-full shadow-xl border border-gray-100 dark:border-zinc-700 opacity-0 group-hover/carousel:opacity-100 transition-all hover:scale-110 hidden lg:flex items-center justify-center text-primary rtl:-left-4 rtl:right-auto"
+        aria-label="Next"
+      >
+        <span class="material-symbols-outlined transition-transform rtl:rotate-180">chevron_right</span>
+      </button>
+    </div>
+
+    <script is:inline>
+      const setupCarousel = () => {
+        const scrollContainer = document.getElementById('news-scroll');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        if (scrollContainer && prevBtn && nextBtn) {
+          const scrollAmount = 350;
+          
+          prevBtn.addEventListener('click', () => {
+            const isRTL = document.documentElement.dir === 'rtl';
+            scrollContainer.scrollBy({
+              left: isRTL ? -scrollAmount : -scrollAmount,
+              behavior: 'smooth'
+            });
+          });
+
+          nextBtn.addEventListener('click', () => {
+            const isRTL = document.documentElement.dir === 'rtl';
+            scrollContainer.scrollBy({
+              left: isRTL ? scrollAmount : scrollAmount,
+              behavior: 'smooth'
+            });
+          });
+        }
+      };
+      
+      setupCarousel();
+      document.addEventListener('astro:page-load', setupCarousel);
+    </script>
+    <div class="mt-12 text-center sm:hidden">
+      <a class="inline-flex items-center gap-2 text-sm font-black uppercase tracking-widest text-primary hover:text-primary-dark" href={block.view_all_link || '#'}>
+        {block.view_all_label || t(lang, 'viewAllNews')}
+        <span class="material-symbols-outlined text-lg">arrow_forward</span>
+      </a>
+    </div>
+  </div>
+</div>

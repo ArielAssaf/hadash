@@ -1,0 +1,54 @@
+---
+import { t } from '../../utils/i18n'
+
+const { block, lang = 'en' } = Astro.props;
+---
+
+<section class="py-24 bg-primary relative overflow-hidden">
+  <div class="absolute inset-0 opacity-10">
+    <div class="grid grid-cols-8 gap-4 rotate-12 scale-150">
+      {Array.from({ length: 32 }).map(() => (
+        <div class="h-20 w-20 border border-white rounded-full"></div>
+      ))}
+    </div>
+  </div>
+  
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+    <div class="max-w-3xl mx-auto">
+      {block.badge && (
+        <div class="inline-block mb-8 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md">
+          <span class="text-white text-sm font-bold uppercase tracking-widest">{block.badge}</span>
+        </div>
+      )}
+      <h2 class="text-4xl md:text-5xl font-black text-white uppercase tracking-tighter mb-6">
+        {block.title || t(lang, 'newsletterTitle')}
+      </h2>
+      <p class="text-white/80 text-lg mb-10 leading-relaxed font-medium">
+        {block.description || t(lang, 'newsletterDescription')}
+      </p>
+      
+      <form class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+        <input 
+          type="email" 
+          placeholder={block.placeholder || t(lang, 'emailPlaceholder')} 
+          class="flex-grow px-6 py-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-white/40 transition-all font-medium backdrop-blur-sm"
+        />
+        <button class="bg-white text-primary px-8 py-4 rounded-xl font-black uppercase tracking-wider hover:bg-neutral-light transition-all shadow-xl hover:shadow-2xl">
+          {block.button_label || t(lang, 'subscribe')}
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+  .bg-primary {
+    background-color: #e21d3e;
+  }
+  .text-primary {
+    color: #e21d3e;
+  }
+  .bg-neutral-light {
+    background-color: #f8f9fa;
+  }
+</style>

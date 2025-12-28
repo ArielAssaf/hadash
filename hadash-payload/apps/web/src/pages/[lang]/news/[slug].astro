@@ -1,0 +1,102 @@
+---
+import { getPayloadPosts, getPayloadPost, getPayloadUrl } from '../../../utils/payload'
+import BaseLayout from '../../../layouts/BaseLayout.astro'
+import { t } from '../../../utils/i18n'
+
+export async function getStaticPaths() {
+  const langs = ['en', 'he', 'ru'];
+  const paths = [];
+
+  // In a real scenario, we might want to paginate or handle large amounts differently
+  // For now, fetching first 100 posts per lang
+  for (const lang of langs) {
+      const posts = await getPayloadPosts(lang, 100);
+      for (const post of posts) {
+          paths.push({ params: { lang, slug: post.slug } });
+      }
+  }
+  return paths;
+}
+
+const { lang, slug } = Astro.params;
+const post = await getPayloadPost(slug, lang);
+
+if (!post) {
+    return Astro.redirect('/404');
+}
+
+// Simple Lexical Serializer (for seeded content which is mostly paragraphs)
+const serializeLexical = (node: any): any => {
+    if (!node) return null;
+
+    if (node.type === 'text') {
+        let text = node.text;
+        if (node.format & 1) text = `<strong>${text}</strong>`; // bold
+        if (node.format & 2) text = `<em>${text}</em>`; // italic
+        return text;
+    }
+
+    if (node.type === 'paragraph') {
+        return `<p class="mb-6 text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+            ${node.children?.map(serializeLexical).join('')}
+        </p>`;
+    }
+
+    if (node.type === 'heading') {
+         const Tag = node.tag || 'h2';
+         // minimal styles
+         return `<${Tag} class="font-bold text-2xl my-4 text-gray-900 dark:text-white">${node.children?.map(serializeLexical).join('')}</${Tag}>`
+    }
+    
+    // Fallback for root or other blocks
+    if (node.children) {
+        return node.children.map(serializeLexical).join('');
+    }
+    
+    return null;
+}
+
+const contentHtml = serializeLexical(post.content?.root);
+---
+
+<BaseLayout lang={lang}>
+  <article class="bg-white dark:bg-background-dark min-h-screen pb-24">
+    {/* Hero Header */}
+    <div class="relative h-[60vh] min-h-[500px] w-full overflow-hidden">
+        <div class="absolute inset-0 bg-gray-900">
+             <img 
+                src={getPayloadUrl(post.image?.url || post.image)} 
+                alt={post.title}
+                class="w-full h-full object-cover opacity-60"
+             />
+             <div class="absolute inset-0 bg-gradient-to-t from-background-dark/90 via-transparent to-transparent"></div>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 p-8 md:p-16">
+            <div class="max-w-4xl mx-auto text-center">
+                 <div class="flex items-center justify-center gap-4 mb-6 text-sm md:text-base font-bold text-primary tracking-widest uppercase">
+                    <span>{post.category || 'News'}</span>
+                    <span>•</span>
+                    <span>{new Date(post.publishedDate).toLocaleDateString(lang, { dateStyle: 'long' })}</span>
+                 </div>
+                 <h1 class="text-3xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-8">
+                    {post.title}
+                 </h1>
+            </div>
+        </div>
+    </div>
+
+    {/* Content */}
+    <div class="px-4 py-12 md:py-20">
+        <div class="mx-auto max-w-3xl">
+             <div class="prose prose-lg dark:prose-invert max-w-none" set:html={contentHtml}></div>
+
+             <div class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800 flex justify-center">
+                <a href={`/${lang}/news`} class="inline-flex items-center gap-2 text-primary font-bold uppercase tracking-widest hover:text-primary-dark transition-colors">
+                    <span class="material-symbols-outlined rtl:rotate-180">arrow_back</span>
+                    {t(lang, 'backToNews') || 'Back to News'}
+                </a>
+             </div>
+        </div>
+    </div>
+  </article>
+</BaseLayout>

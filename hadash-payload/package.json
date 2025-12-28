@@ -1,0 +1,13 @@
+{
+    "name": "hadash-monorepo",
+    "private": true,
+    "workspaces": [
+        "apps/*"
+    ],
+    "scripts": {
+        "dev": "npm run dev --workspaces --if-present"
+    },
+    "engines": {
+        "node": ">=20.0.0"
+    }
+}

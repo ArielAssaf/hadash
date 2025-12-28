@@ -1,0 +1,63 @@
+---
+import { getPayloadPosts, getPayloadUrl } from '../../../utils/payload'
+import BaseLayout from '../../../layouts/BaseLayout.astro'
+import { t } from '../../../utils/i18n'
+
+export async function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'he' } },
+    { params: { lang: 'ru' } },
+  ];
+}
+
+const { lang } = Astro.params;
+const posts = await getPayloadPosts(lang, 100);
+---
+
+<BaseLayout lang={lang}>
+  <div class="py-24 bg-gray-50 dark:bg-background-dark min-h-screen">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-12 text-center">
+        <h1 class="text-4xl font-black text-text-main dark:text-white uppercase tracking-tight mb-4">{t(lang, 'latestUpdates')}</h1>
+        <div class="h-1.5 w-24 bg-primary mx-auto"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {posts?.map((post: any) => (
+          <a href={`/${lang}/news/${post.slug}`} class="group block h-full">
+            <article class="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 h-full flex flex-col">
+              <div class="aspect-[16/10] overflow-hidden relative">
+                 <div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity z-10"></div>
+                 <img 
+                    src={getPayloadUrl(post.image?.url || post.image)} 
+                    alt={post.title}
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                 />
+              </div>
+              <div class="p-6 flex flex-col flex-grow">
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="text-xs font-bold text-primary uppercase tracking-widest">{post.category || 'News'}</span>
+                    <span class="text-xs text-gray-400">•</span>
+                    <span class="text-xs text-gray-400">{new Date(post.publishedDate).toLocaleDateString(lang)}</span>
+                </div>
+                <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-primary transition-colors leading-tight">
+                  {post.title}
+                </h2>
+                <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-3 mb-4 leading-relaxed">
+                  {post.excerpt}
+                </p>
+                <div class="mt-auto">
+                    <span class="text-sm font-bold text-primary uppercase tracking-wider flex items-center gap-2">
+                        {t(lang, 'readMore')}
+                        <span class="material-symbols-outlined text-lg transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1">arrow_forward</span>
+                    </span>
+                </div>
+              </div>
+            </article>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</BaseLayout>

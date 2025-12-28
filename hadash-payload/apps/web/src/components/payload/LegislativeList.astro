@@ -1,0 +1,61 @@
+---
+const { block, lang } = Astro.props
+---
+
+<div class="bg-gray-50 dark:bg-[#151515] py-24 transition-colors">
+  <div class="mx-auto max-w-[1000px] px-4 sm:px-6 lg:px-8">
+    <div class="mb-16 text-center flex flex-col items-center">
+      {block.badge && (
+        <span class="mb-4 inline-block rounded-full bg-primary/10 px-4 py-1 text-xs font-black text-primary uppercase tracking-widest border border-primary/20">
+          {block.badge}
+        </span>
+      )}
+      <h2 class="text-4xl md:text-5xl font-black text-text-main dark:text-white uppercase tracking-tighter mb-6 leading-none">
+        {block.title || 'Laws & Achievements'}
+      </h2>
+      
+      {block.image?.url && (
+        <div class="w-full max-w-4xl mx-auto mb-10 overflow-hidden rounded-2xl shadow-2xl">
+          <img src={block.image.url} alt={block.title} class="w-full h-auto object-cover max-h-[400px]" />
+        </div>
+      )}
+
+      <div class="h-1.5 w-24 bg-primary"></div>
+    </div>
+
+    <div class="space-y-12">
+      {block.categories?.map((cat: any) => (
+        <div class="bg-white dark:bg-background-dark rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100 dark:border-white/5">
+          <div class="flex items-center gap-4 mb-10">
+            <div class={`size-12 rounded-full flex items-center justify-center text-white shadow-lg ${cat.type === 'blocked' ? 'bg-orange-500' : 'bg-primary'}`}>
+              <span class="material-symbols-outlined">{cat.icon || 'star'}</span>
+            </div>
+            <h3 class="text-2xl font-black text-text-main dark:text-white uppercase tracking-tight">
+              {cat.name}
+            </h3>
+          </div>
+          
+          <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+            {cat.items?.map((item: any) => (
+              <li class="flex items-start gap-4 group">
+                <div class="mt-1 flex-shrink-0">
+                  <span class={`material-symbols-outlined text-xl ${cat.type === 'blocked' ? 'text-orange-500' : 'text-primary'}`}>
+                    {cat.type === 'blocked' ? 'close' : 'check_circle'}
+                  </span>
+                </div>
+                <div>
+                  <h4 class="font-black text-text-main dark:text-white uppercase text-sm mb-1 group-hover:text-primary transition-colors">
+                    {item.title}
+                  </h4>
+                  <p class="text-sm text-text-muted dark:text-gray-400 leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>

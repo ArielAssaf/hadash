@@ -1,0 +1,26 @@
+---
+import Hero from './Hero.astro'
+import News from './News.astro'
+import LegislativeList from './LegislativeList.astro'
+import MissionSection from './MissionSection.astro'
+import TeamGrid from './TeamGrid.astro'
+import Values from './Values.astro'
+import Newsletter from './Newsletter.astro'
+
+const { content, lang } = Astro.props
+
+const components: Record<string, any> = {
+  hero: Hero,
+  news: News,
+  legislative_list: LegislativeList,
+  mission_section: MissionSection,
+  team_grid: TeamGrid,
+  values: Values,
+  newsletter: Newsletter,
+}
+---
+
+{content?.map((block: any) => {
+  const Component = components[block.blockType];
+  return Component ? <Component block={block} lang={lang} /> : null;
+})}
