@@ -143,76 +143,60 @@ Ensure all Astro components correctly render the Payload data.
 
 ---
 
-## PHASE 6: VERIFICATION (ACTIVE 🚀)
+## PHASE 6: VERIFICATION (COMPLETED ✅)
 
+### Summary of Verification
+- **Home Page**: Verified Hebrew, English, and Russian versions. Hero, Values, News, Team, and Newsletter sections are rendering correctly.
+- **Images**: Fixed missing images issue by creating `getPayloadUrl` helper to handle relative paths from Payload API.
+- **Components**: Verified `Hero`, `Values`, `TeamGrid`, `News` components are fetching and displaying data correctly.
 
-### Step 6.1: Create Verification Checklist
-
-For EACH page and language combination:
-
-**Home Page (index) - Hebrew (`/he`)**:
-- [ ] Hero section displays with background image
-- [ ] Hero title: "בונים עתיד משותף"
-- [ ] Values section displays with 3 cards
-- [ ] Each value card has background image
-- [ ] News section displays with 3 items
-- [ ] News items have images
-- [ ] Team grid displays with 4 members
-- [ ] Team members have photos
-- [ ] Newsletter section displays
-
-**Vision Page - Hebrew (`/he/vision`)**:
-- [ ] Hero section displays
-- [ ] Values section displays
-
-**Team Page - Hebrew (`/he/team`)**:
-- [ ] Hero section displays
-- [ ] Team grid displays with 4 members
-
-**Legislative Page - Hebrew (`/he/legislative`)**:
-- [ ] Hero section displays
-- [ ] Legislative list displays
-
-**Repeat for English and Russian**.
-
-### Step 6.2: Visual Comparison
-
-Open side-by-side:
-- Reference: https://arielassaf.github.io/hadash/he/
-- Current: http://127.0.0.1:4321/he
-
-Check:
-- [ ] Content text matches exactly
-- [ ] Images display correctly
-- [ ] Layout matches
-- [ ] Styling matches
-- [ ] All links work
-- [ ] All buttons present
-
-### Step 6.3: Fix Discrepancies
-
-Document any issues found in `ISSUES.md`:
-
-```markdown
-# Issues Found During Verification
-
-## Page: Home (Hebrew)
-- [ ] Issue 1: Description...
-  - Fix: ...
-- [ ] Issue 2: Description...
-  - Fix: ...
-```
-
-Fix each issue systematically, test, and check off.
+### Issues Resolved
+- **Missing Images**: Fixed by appending base URL to relative paths.
+- **Empty Home Page**: Fixed by adding `apps/web/src/pages/[lang]/index.astro` for localized routing.
+- **News Section**: Updated to fetch dynamic content.
 
 ---
 
-## PHASE 7: CLEANUP (15 minutes)
+## PHASE 6.5: NEWS / STORIES IMPLEMENTATION (COMPLETED ✅)
+
+### Goal
+Implement a full news/stories system with a dedicated content collection, seeding, and frontend views.
+
+### Status
+- **Backend (Payload CMS)**:
+  - Created `Posts` collection (`apps/cms/src/collections/Posts.ts`).
+  - Implemented `seed-posts` API route to import 12 stories from `hadash_stories_extracted.json`.
+  - Downloaded and seeded images for all stories.
+- **Frontend (Astro)**:
+  - Created `apps/web/src/pages/[lang]/news/index.astro` for the news listing page.
+  - Created `apps/web/src/pages/[lang]/news/[slug].astro` for individual story pages.
+  - Updated `News.astro` component on the homepage to fetch the latest 10 stories dynamically.
+- **Verification**:
+  - Verified news listing at `/he/news`.
+  - Verified single story pages (e.g., `/he/news/[slug]`).
+  - Verified homepage news carousel.
+
+---
+
+## PHASE 7: VISUAL VALIDATION & POLISH (ACTIVE 🚀)
+
+### Goal
+Compare the new Payload-based site against the verified reference design using side-by-side screengrabs. Identify and fix layout, spacing, and styling regressions.
+
+### Steps
+1. **Receive Screengrabs**: User provides "Old vs New" comparisons for key pages (Home, Vision, Team, Legislative).
+2. **Analyze Discrepancies**: Identify specific CSS/Layout styling issues (e.g., margins, font sizes, image aspect ratios).
+3. **Apply Fixes**: Update Astro components (`apps/web/src/components/payload/...`) and Tailwind classes.
+4. **Verify**: Confirm the fix matches the "Old" reference design.
+
+---
+
+## PHASE 8: CLEANUP & HANDOVER (PENDING)
 
 ### Goal
 Remove temporary files and scripts.
 
-### Step 7.1: Remove Temporary API Routes
+### Step 8.1: Remove Temporary API Routes
 
 Delete:
 - `apps/cms/src/app/(payload)/api/delete-all-pages/`
@@ -220,7 +204,7 @@ Delete:
 - `apps/cms/src/app/(payload)/api/seed/` (old version)
 - `apps/cms/src/app/(payload)/api/seed-pages/` (old version)
 
-### Step 7.2: Clean Up Reference Files
+### Step 8.2: Clean Up Reference Files
 
 Move to archive:
 ```powershell
@@ -230,7 +214,7 @@ Move-Item -Path "reference-content.json" -Destination "archive/reference-content
 Move-Item -Path "*.html" -Destination "archive/" -ErrorAction SilentlyContinue
 ```
 
-### Step 7.3: Update Documentation
+### Step 8.3: Update Documentation
 
 Create `CONTENT_MANAGEMENT.md` with instructions for:
 - How to add new pages in Payload

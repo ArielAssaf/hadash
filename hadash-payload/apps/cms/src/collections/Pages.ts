@@ -6,6 +6,8 @@ import { MissionSection } from '../blocks/MissionSection'
 import { TeamGrid } from '../blocks/TeamGrid'
 import { Values } from '../blocks/Values'
 import { Newsletter } from '../blocks/Newsletter'
+import { PlatformAccordion } from '../blocks/PlatformAccordion'
+
 
 export const Pages: CollectionConfig = {
     slug: 'pages',
@@ -34,7 +36,8 @@ export const Pages: CollectionConfig = {
         {
             name: 'layout',
             type: 'blocks',
-            blocks: [Hero, News, LegislativeList, MissionSection, TeamGrid, Values, Newsletter],
+            localized: true,
+            blocks: [Hero, News, LegislativeList, MissionSection, TeamGrid, Values, Newsletter, PlatformAccordion],
         },
     ],
 }

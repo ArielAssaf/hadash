@@ -31,25 +31,7 @@ export async function POST() {
             return NextResponse.json({ success: false, logs, error: 'Reference content missing or invalid' }, { status: 500 })
         }
 
-        // 2. Clean existing pages
-        log('🧹 Cleaning existing pages...')
-        const existingPages = await payload.find({
-            collection: 'pages',
-            limit: 100,
-            overrideAccess: true,
-        })
-        log(`Found ${existingPages.docs.length} existing pages to delete`)
-
-        for (const page of existingPages.docs) {
-            await payload.delete({
-                collection: 'pages',
-                id: page.id,
-                overrideAccess: true,
-            })
-            log(`🗑️ Deleted page: ${page.slug}`)
-        }
-
-        // 3. Process Pages
+        // 2. Process Pages (Sync Logic: Update if exists, Create if not)
         const pageKeys = Object.keys(referenceContent.pages)
         for (const pageKey of pageKeys) {
             const localesData = referenceContent.pages[pageKey]
@@ -58,34 +40,60 @@ export async function POST() {
 
             if (!mainData) continue
 
-            log(`📄 Creating page: ${pageKey} (${mainLocale})`)
-            const processedLayout = await processLayout(mainData.layout, payload, log)
+            log(`📄 Syncing page: ${pageKey}`)
+
+            // Check if page already exists by slug
+            const existingPage = await payload.find({
+                collection: 'pages',
+                where: {
+                    slug: { equals: mainData.slug }
+                },
+                overrideAccess: true,
+            })
+
+            let targetPageId: string | number
+            const processedLayoutHe = await processLayout(mainData.layout, payload, log)
 
             try {
-                const createdPage = await payload.create({
-                    collection: 'pages',
-                    locale: mainLocale,
-                    data: {
-                        title: mainData.title,
-                        slug: mainData.slug,
-                        layout: processedLayout,
-                    },
-                    overrideAccess: true,
-                })
-
-                log(`✅ Created ${pageKey} ID: ${createdPage.id}`)
+                if (existingPage.docs.length > 0) {
+                    targetPageId = existingPage.docs[0].id
+                    log(`   🔄 Updating existing page: ${pageKey} (${targetPageId})`)
+                    await payload.update({
+                        collection: 'pages',
+                        id: targetPageId,
+                        locale: mainLocale,
+                        data: {
+                            title: mainData.title,
+                            layout: processedLayoutHe,
+                        },
+                        overrideAccess: true,
+                    })
+                } else {
+                    log(`   ✨ Creating new page: ${pageKey}`)
+                    const createdPage = await payload.create({
+                        collection: 'pages',
+                        locale: mainLocale,
+                        data: {
+                            title: mainData.title,
+                            slug: mainData.slug,
+                            layout: processedLayoutHe,
+                        },
+                        overrideAccess: true,
+                    })
+                    targetPageId = createdPage.id
+                }
 
                 // Update for other locales
                 for (const locale of ['en', 'ru']) {
                     const localeData = localesData[locale]
                     if (!localeData) continue
 
-                    log(`  🌐 Updating ${pageKey} for locale: ${locale}`)
+                    log(`   🌐 Syncing ${pageKey} for locale: ${locale}`)
                     const localeProcessedLayout = await processLayout(localeData.layout, payload, log)
 
                     await payload.update({
                         collection: 'pages',
-                        id: createdPage.id,
+                        id: targetPageId,
                         locale: locale as any,
                         data: {
                             title: localeData.title,
@@ -96,9 +104,99 @@ export async function POST() {
                     })
                 }
             } catch (err: any) {
-                log(`❌ Error creating/updating page ${pageKey}: ${err.message}`)
+                log(`❌ Error syncing page ${pageKey}: ${err.message}`)
             }
         }
+
+        // 4. Seed Globals (Navigation & Site Settings)
+        log('🌐 Seeding Navigation Global...')
+        const menuItemsHe = [
+            { label: 'מצע', link: '/he/platform' },
+            { label: 'פעולה', link: '/he/#action' },
+            { label: 'צוות', link: '/he/team' },
+            { label: 'שימושי', link: '/he/#useful' },
+            { label: 'תמיכה', link: '/he/#support' },
+            { label: 'חדשות', link: '/he/news' },
+            { label: 'חקיקה', link: '/he/legislative' },
+        ]
+
+        const menuItemsEn = [
+            { label: 'Platform', link: '/en/platform' },
+            { label: 'Action', link: '/en/#action' },
+            { label: 'Team', link: '/en/team' },
+            { label: 'Useful', link: '/en/#useful' },
+            { label: 'Support', link: '/en/#support' },
+            { label: 'News', link: '/en/news' },
+            { label: 'Legislative', link: '/en/legislative' },
+        ]
+
+        const menuItemsRu = [
+            { label: 'Платформа', link: '/ru/platform' },
+            { label: 'Действие', link: '/ru/#action' },
+            { label: 'Команда', link: '/ru/team' },
+            { label: 'Полезное', link: '/ru/#useful' },
+            { label: 'Поддержка', link: '/ru/#support' },
+            { label: 'Новости', link: '/ru/news' },
+            { label: 'Законодательство', link: '/ru/legislative' },
+        ]
+
+        await payload.updateGlobal({
+            slug: 'navigation',
+            locale: 'he',
+            data: { menuItems: menuItemsHe },
+            overrideAccess: true,
+        })
+
+        await payload.updateGlobal({
+            slug: 'navigation',
+            locale: 'en',
+            data: { menuItems: menuItemsEn },
+            overrideAccess: true,
+        })
+
+        await payload.updateGlobal({
+            slug: 'navigation',
+            locale: 'ru',
+            data: { menuItems: menuItemsRu },
+            overrideAccess: true,
+        })
+
+        log('⚙️ Seeding Site Settings Global...')
+        await payload.updateGlobal({
+            slug: 'site-settings',
+            locale: 'he',
+            data: {
+                logoText: 'חד״ש',
+                officialPortal: 'חזית דמוקרטית לשלום ולשוויון',
+                footerText: 'שותפות יהודית-ערבית לשוויון, צדק חברתי ושלום.',
+                copyrightText: '© 2024 חד״ש. כל הזכויות שמורות.',
+            },
+            overrideAccess: true,
+        })
+
+        await payload.updateGlobal({
+            slug: 'site-settings',
+            locale: 'en',
+            data: {
+                logoText: 'HADASH',
+                officialPortal: 'Democratic Front for Peace and Equality',
+                footerText: 'Jewish-Arab partnership for equality, social justice and peace.',
+                copyrightText: '© 2024 HADASH. All rights reserved.',
+            },
+            overrideAccess: true,
+        })
+
+        await payload.updateGlobal({
+            slug: 'site-settings',
+            locale: 'ru',
+            data: {
+                logoText: 'ХАДАШ',
+                officialPortal: 'Демократический фронт за мир и равенство',
+                footerText: 'Еврейско-арабское партнерство за равенство, социальную справедливость и мир.',
+                copyrightText: '© 2024 ХАДАШ. Все права защищены.',
+            },
+            overrideAccess: true,
+        })
 
         log('🎉 Migration Seed Finished!')
         return NextResponse.json({ success: true, logs })
@@ -166,18 +264,27 @@ async function uploadImage(url: string, payload: any, log: Function): Promise<nu
 
     try {
         log(`    📸 Uploading image: ${url.split('/').pop()?.substring(0, 30)}...`)
-        const res = await fetch(url)
-        if (!res.ok) throw new Error(`Fetch failed: ${res.statusText}`)
+        const res = await fetch(url, {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+            }
+        })
+        if (!res.ok) throw new Error(`Fetch failed: ${res.status} ${res.statusText}`)
 
         const buffer = Buffer.from(await res.arrayBuffer())
-        const filename = (url.split('/').pop()?.split('?')[0] || `image-${Date.now()}.jpg`).replace(/[^a-zA-Z0-9.]/g, '_')
+        let cleanName = (url.split('/').pop()?.split('?')[0] || `image-${Date.now()}`).replace(/[^a-zA-Z0-9]/g, '_')
+        if (cleanName.length > 50) cleanName = cleanName.substring(0, 50)
+
+        const contentType = res.headers.get('content-type') || 'image/jpeg'
+        const extension = contentType.split('/')[1] || 'jpg'
+        const filename = `${cleanName}.${extension}`
 
         const media = await payload.create({
             collection: 'media',
             data: { alt: filename },
             file: {
                 data: buffer,
-                mimetype: res.headers.get('content-type') || 'image/jpeg',
+                mimetype: contentType,
                 name: filename,
                 size: buffer.length,
             },

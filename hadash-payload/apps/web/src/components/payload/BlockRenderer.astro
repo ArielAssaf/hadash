@@ -6,6 +6,8 @@ import MissionSection from './MissionSection.astro'
 import TeamGrid from './TeamGrid.astro'
 import Values from './Values.astro'
 import Newsletter from './Newsletter.astro'
+import PlatformAccordion from './PlatformAccordion.astro'
+
 
 const { content, lang } = Astro.props
 
@@ -17,7 +19,9 @@ const components: Record<string, any> = {
   team_grid: TeamGrid,
   values: Values,
   newsletter: Newsletter,
+  platform_accordion: PlatformAccordion,
 }
+
 ---
 
 {content?.map((block: any) => {
