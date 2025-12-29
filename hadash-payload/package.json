@@ -5,7 +5,8 @@
         "apps/*"
     ],
     "scripts": {
-        "dev": "npm run dev --workspaces --if-present"
+        "dev": "npm run dev --workspaces --if-present",
+        "build": "npm run build --workspaces --if-present"
     },
     "engines": {
         "node": ">=20.0.0"
