@@ -61,8 +61,13 @@ export async function GET() {
             return NextResponse.json({ error: `File not found at ${storiesPath}` }, { status: 404 });
         }
 
-        // 1. Delete existing posts to avoid duplicates (optional, or just upsert)
-        // await payload.delete({ collection: 'posts', where: { id: { exists: true } } });
+        // 1. Delete existing posts to avoid duplicates
+        try {
+            await payload.delete({ collection: 'posts', where: { id: { exists: true } } });
+            console.log("Deleted existing posts.");
+        } catch (e) {
+            console.warn("Failed to delete existing posts or none existed:", e);
+        }
 
         const results = [];
 
@@ -131,15 +136,17 @@ export async function GET() {
 
             const post = await payload.create({
                 collection: 'posts',
+                draft: false,
+                overrideAccess: true,
                 data: {
                     title: story.name,
                     slug: slugify(story.name),
                     publishedDate: story.date,
-                    image: imageId, // Required field
+                    image: imageId,
                     content: content,
                     category: 'news',
                     excerpt: story.paragraphs[0] || '',
-                }
+                } as any
             });
 
             results.push({ title: story.name, status: 'created', id: post.id });
@@ -147,7 +154,7 @@ export async function GET() {
 
         return NextResponse.json({ success: true, results });
 
-    } catch (error) {
+    } catch (error: any) {
         console.error('Seed posts error:', error);
         return NextResponse.json({ error: error.message, stack: error.stack }, { status: 500 });
     }

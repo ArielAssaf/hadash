@@ -7,8 +7,8 @@ export function getPayloadUrl(path: string | undefined | null) {
     return `${PAYLOAD_URL}${path}`;
 }
 
-export async function getPayloadPage(slug: string, lang: string = 'en') {
-    const url = `${PAYLOAD_API_URL}/pages?where[slug][equals]=${slug}&locale=${lang}`;
+export async function getPayloadPage(slug: string, lang: string = 'en', draft: boolean = false) {
+    const url = `${PAYLOAD_API_URL}/pages?where[slug][equals]=${slug}&locale=${lang}${draft ? '&draft=true' : ''}`;
     console.log(`[Payload] Fetching page: ${url}`);
     try {
         const res = await fetch(url);
@@ -61,8 +61,8 @@ export async function getPayloadPosts(lang: string = 'en', limit: number = 10) {
     }
 }
 
-export async function getPayloadPost(slug: string, lang: string = 'en') {
-    const url = `${PAYLOAD_API_URL}/posts?where[slug][equals]=${slug}&locale=${lang}`;
+export async function getPayloadPost(slug: string, lang: string = 'en', draft: boolean = false) {
+    const url = `${PAYLOAD_API_URL}/posts?where[slug][equals]=${slug}&locale=${lang}${draft ? '&draft=true' : ''}`;
     console.log(`[Payload] Fetching post: ${url}`);
     try {
         const res = await fetch(url);

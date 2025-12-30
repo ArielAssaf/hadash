@@ -135,12 +135,15 @@ const siteSettingsData = {
     },
 }
 
-const socialLinksData = [
-    { platform: 'Facebook', url: 'https://facebook.com/hadash' },
-    { platform: 'Twitter', url: 'https://twitter.com/hadaboreret' },
-    { platform: 'Instagram', url: 'https://instagram.com/hadash_official' },
-    { platform: 'YouTube', url: 'https://youtube.com/hadash' },
-]
+const socialLinksData: {
+    platform: 'Facebook' | 'Twitter' | 'Instagram' | 'YouTube'
+    url: string
+}[] = [
+        { platform: 'Facebook', url: 'https://facebook.com/hadash' },
+        { platform: 'Twitter', url: 'https://twitter.com/hadaboreret' },
+        { platform: 'Instagram', url: 'https://instagram.com/hadash_official' },
+        { platform: 'YouTube', url: 'https://youtube.com/hadash' },
+    ]
 
 // News articles data
 const newsArticlesData = {
@@ -228,7 +231,7 @@ const newsArticlesData = {
 const missionSectionsData = {
     en: [
         {
-            blockType: 'mission_section',
+            blockType: 'mission_section' as const,
             mission_tag: 'Mission 01',
             title: 'Social\nJustice',
             icon: 'balance',
@@ -242,7 +245,7 @@ const missionSectionsData = {
             link_label: 'Learn More',
         },
         {
-            blockType: 'mission_section',
+            blockType: 'mission_section' as const,
             mission_tag: 'Mission 02',
             title: 'Peace &\nEquality',
             icon: 'handshake',
@@ -258,7 +261,7 @@ const missionSectionsData = {
     ],
     he: [
         {
-            blockType: 'mission_section',
+            blockType: 'mission_section' as const,
             mission_tag: 'משימה 01',
             title: 'צדק\nחברתי',
             icon: 'balance',
@@ -272,7 +275,7 @@ const missionSectionsData = {
             link_label: 'קראו עוד',
         },
         {
-            blockType: 'mission_section',
+            blockType: 'mission_section' as const,
             mission_tag: 'משימה 02',
             title: 'שלום\nושוויון',
             icon: 'handshake',
@@ -288,7 +291,7 @@ const missionSectionsData = {
     ],
     ru: [
         {
-            blockType: 'mission_section',
+            blockType: 'mission_section' as const,
             mission_tag: 'Миссия 01',
             title: 'Социальная\nсправедливость',
             icon: 'balance',
@@ -302,7 +305,7 @@ const missionSectionsData = {
             link_label: 'Узнать больше',
         },
         {
-            blockType: 'mission_section',
+            blockType: 'mission_section' as const,
             mission_tag: 'Миссия 02',
             title: 'Мир и\nравенство',
             icon: 'handshake',
@@ -371,6 +374,47 @@ async function seed() {
     // Update Home Page with news and mission sections
     console.log('\n=== UPDATING HOME PAGE ===')
 
+    // Ensure Home Page exists
+    const existingPages = await payload.find({
+        collection: 'pages',
+        where: {
+            slug: { equals: 'index' },
+        },
+    })
+
+    if (existingPages.docs.length === 0) {
+        console.log('⚠️ Home page not found, creating it...')
+        await payload.create({
+            collection: 'pages',
+            locale: 'en',
+            data: {
+                title: 'Home',
+                slug: 'index',
+                layout: [
+                    {
+                        blockType: 'hero',
+                        title: 'Building a Shared Future',
+                        description: 'Hadash is a Jewish-Arab partnership for equality, social justice, and peace.',
+                        buttons: [
+                            {
+                                label: 'Join Us',
+                                style: 'primary',
+                            },
+                        ],
+                    },
+                    {
+                        blockType: 'news',
+                        title: 'Latest News',
+                        view_all_label: 'View All News',
+                        view_all_link: '/news',
+                        articles: [], // Initialize empty
+                    },
+                ],
+            },
+        })
+        console.log('✅ Home page created')
+    }
+
     for (const locale of ['en', 'he', 'ru'] as const) {
         console.log(`\n📤 Updating home page (${locale})...`)
         try {
@@ -395,7 +439,7 @@ async function seed() {
             const newsIndex = layout.findIndex((b: any) => b.blockType === 'news')
             if (newsIndex >= 0) {
                 layout[newsIndex] = {
-                    ...layout[newsIndex],
+                    ...(layout[newsIndex] as any),
                     articles: newsArticlesData[locale],
                 }
                 console.log(`  ✓ News articles added`)
