@@ -20,6 +20,34 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    livePreview: {
+      url: ({ data, locale, collectionConfig }) => {
+        const baseUrl = 'http://localhost:4321'
+        const code = (typeof locale === 'string' ? locale : (locale as any)?.code) || 'en'
+        console.log('[LivePreview] Context:', {
+          collection: collectionConfig?.slug,
+          localeCode: code,
+          dataSlug: data.slug,
+          fullLocale: locale
+        });
+
+        if (collectionConfig?.slug === 'pages') {
+          const prefix = code === 'en' ? '' : `/${code}`
+          const url = `${baseUrl}${prefix}/${data.slug === 'index' ? '' : data.slug}`
+          console.log(`[LivePreview] Page URL: ${url}`);
+          return url
+        }
+
+        if (collectionConfig?.slug === 'posts') {
+          const url = `${baseUrl}/${code}/news/${data.slug}`
+          console.log(`[LivePreview] Post URL: ${url}`);
+          return url
+        }
+
+        return baseUrl
+      },
+      collections: ['pages', 'posts'],
+    },
   },
   collections: [Users, Media, Pages, Posts],
   globals: [Navigation, SiteSettings],
@@ -37,6 +65,11 @@ export default buildConfig({
       {
         label: 'Russian',
         code: 'ru',
+      },
+      {
+        label: 'Arabic',
+        code: 'ar',
+        rtl: true,
       },
     ],
     defaultLocale: 'en',

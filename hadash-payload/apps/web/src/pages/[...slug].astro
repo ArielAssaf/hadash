@@ -4,6 +4,7 @@ import BlockRenderer from '../components/payload/BlockRenderer.astro'
 import BaseLayout from '../layouts/BaseLayout.astro'
 
 export async function getStaticPaths() {
+  // trigger rebuild
   const locales = ['en', 'he', 'ru']
   const paths = []
 

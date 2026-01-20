@@ -111,4 +111,14 @@ Navigation is a **Global** in Payload. Edit it via the Admin Panel under "Global
 
 ---
 
+## ✨ Live Preview
+
+The site supports real-time editing previews for **Pages** and **Posts**.
+
+- **CMS Configuration:** Located in `apps/cms/src/payload.config.ts` under `admin.livePreview`.
+- **Frontend Implementation:** Managed in `apps/web/src/layouts/BaseLayout.astro` using a client-side subscription to Payload's update messages.
+- **Workflow:** When editing a page in the Payload Admin Panel, click the "Live Preview" tab (top right) to see changes instantly applied to the Astro frontend without a manual refresh.
+
+---
+
 *Last Updated: December 2025*

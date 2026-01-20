@@ -7,6 +7,7 @@ import { TeamGrid } from '../blocks/TeamGrid'
 import { Values } from '../blocks/Values'
 import { Newsletter } from '../blocks/Newsletter'
 import { PlatformAccordion } from '../blocks/PlatformAccordion'
+import { Content } from '../blocks/Content'
 
 
 export const Pages: CollectionConfig = {
@@ -16,6 +17,7 @@ export const Pages: CollectionConfig = {
     },
     access: {
         read: () => true,
+        update: () => true,
     },
     fields: [
         {
@@ -37,7 +39,7 @@ export const Pages: CollectionConfig = {
             name: 'layout',
             type: 'blocks',
             localized: true,
-            blocks: [Hero, News, LegislativeList, MissionSection, TeamGrid, Values, Newsletter, PlatformAccordion],
+            blocks: [Hero, Content, News, LegislativeList, MissionSection, TeamGrid, Values, Newsletter, PlatformAccordion],
         },
     ],
 }
