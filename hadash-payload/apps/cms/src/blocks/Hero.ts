@@ -35,6 +35,11 @@ export const Hero: Block = {
                     localized: true,
                 },
                 {
+                    name: 'link',
+                    type: 'text',
+                    localized: true,
+                },
+                {
                     name: 'style',
                     type: 'select',
                     defaultValue: 'primary',

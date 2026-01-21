@@ -71,6 +71,9 @@ const footerMenus = navigation?.footerMenus || []
               {i18n.t(lang, 'donate')}
             </button>
             <div class="hidden lg:flex items-center bg-gray-100 dark:bg-white/5 p-1 rounded-xl">
+              <a class={`px-4 py-2 rounded-lg text-[10px] font-black uppercase transition-all ${lang === 'ar' ? 'bg-white dark:bg-white/10 shadow-sm text-text-main dark:text-white' : 'text-text-muted dark:text-gray-400 hover:text-text-main'}`} href={i18n.getLocalizedPath('/', 'ar')}>
+                AR
+              </a>
               <a class={`px-4 py-2 rounded-lg text-[10px] font-black uppercase transition-all ${lang === 'ru' ? 'bg-white dark:bg-white/10 shadow-sm text-text-main dark:text-white' : 'text-text-muted dark:text-gray-400 hover:text-text-main'}`} href={i18n.getLocalizedPath('/', 'ru')}>
                 RU
               </a>

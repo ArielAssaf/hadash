@@ -1,10 +1,10 @@
-export const locales = ['en', 'he', 'ru'];
+export const locales = ['en', 'he', 'ru', 'ar'];
 export const defaultLocale = 'en';
 
-export type Locale = 'en' | 'he' | 'ru';
+export type Locale = 'en' | 'he' | 'ru' | 'ar';
 
 export function getDirection(locale: string): 'rtl' | 'ltr' {
-    return locale === 'he' ? 'rtl' : 'ltr';
+    return (locale === 'he' || locale === 'ar') ? 'rtl' : 'ltr';
 }
 
 export const translations = {
@@ -172,6 +172,61 @@ export const translations = {
         copyright: '© 2024 Хадаш. Все права защищены.',
         privacyPolicy: 'Политика конфиденциальности',
         termsOfService: 'Условия обслуживания',
+    },
+    ar: {
+        home: 'الرئيسية',
+        vision: 'الرؤية',
+        action: 'العمل',
+        team: 'الفريق',
+        utilities: 'المرافق',
+        supporter: 'المؤيدين',
+        news: 'الأخبار',
+        legislative: 'التشريع',
+        donate: 'تبرع',
+        backToHome: 'العودة إلى الرئيسية',
+        joinMovement: 'انضم للحركة',
+        officialPortal: '',
+        visionSubtitle: 'استكشف مهامنا الأساسية لإنهاء الاحتلال وتحقيق العدالة الاجتماعية وبناء مجتمع مشترك.',
+        heroTitle: 'بناء \nمستقبل مشترك',
+        heroDescription: 'انضم إلى الحركة من أجل السلام والمساواة والعدالة الاجتماعية. نحن نبني الجسور بين المجتمعات.',
+        joinUs: 'انضم إلينا',
+        readManifesto: 'اقرأ الدستور',
+        coreValues: 'القيم الجوهرية',
+        valuesDescription: 'نحن ملتزمون ببناء مجتمع عادل لجميع المواطنين، قائم على الاحترام المتبادل والشراكة.',
+        value1Title: 'إنهاء الاحتلال',
+        value1Text: 'السعي للوصول إلى حل سلمي يقوم على دولتين لشعبين.',
+        value2Title: 'المساواة الاجتماعية',
+        value2Text: 'النضال من أجل حقوق متساوية، وأجور عادلة، وفرص لكل مواطن.',
+        value3Title: 'الشراكة اليهودية العربية',
+        value3Text: 'بناء الجسور بين المجتمعات من أجل مستقبل ديمقراطي مشترك.',
+        stayConnected: 'ابق على تواصل',
+        newsletterTitle: 'انضم للحركة',
+        newsletterDescription: 'اشترك في نشرتنا الإخبارية للحصول على آخر الأخبار وتنبيهات العمل وطرق المشاركة في بناء مستقبل مشترك.',
+        emailPlaceholder: 'أدخل بريدك الإلكتروني',
+        subscribe: 'اشتراك',
+        viewAllNews: 'عرض جميع الأخبار',
+        latestUpdates: 'آخر التحديثات',
+        readMore: 'اقرأ المزيد',
+        backToNews: 'العودة إلى الأخبار',
+        logoText: 'الجبهة',
+        viewOriginal: 'اقرأ المقال بالكامل على موقع الجبهة',
+        shareArticle: 'شارك هذا المقال',
+        footerText: 'مصافحة رقمية من أجل غد أفضل. تعزيز السلام والمساواة والعدالة الاجتماعية للجميع.',
+        newsletterDisclaimer: 'بالاشتراك، فإنك توافق على سياسة الخصوصية الخاصة بنا. لا توجد رسائل مزعجة، فقط تقدم.',
+        orgTitle: 'المنظمة',
+        aboutUs: 'عنا',
+        ourHistory: 'تاريخنا',
+        leadership: 'القيادة',
+        actionTitle: 'العمل',
+        events: 'فعاليات',
+        volunteer: 'تطوع',
+        connectTitle: 'تواصل',
+        facebook: 'فيسبوك',
+        twitter: 'تويتر',
+        instagram: 'إنستغرام',
+        copyright: '© 2024 الجبهة. جميع الحقوق محفوظة.',
+        privacyPolicy: 'سياسة الخصوصية',
+        termsOfService: 'شروط الخدمة',
     },
 };
 

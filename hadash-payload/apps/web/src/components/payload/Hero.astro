@@ -28,9 +28,12 @@ const { block, lang } = Astro.props
       </p>
       <div class="flex flex-wrap gap-4">
         {block.buttons?.map((button: any) => (
-          <button class={`rounded-lg px-8 py-4 text-base font-black transition-all shadow-lg hover:shadow-xl uppercase tracking-wide ${button.style === 'primary' ? 'bg-primary text-white hover:bg-primary-dark' : 'bg-white/10 border border-white/30 text-white hover:bg-white/20 backdrop-blur-sm'}`}>
+          <a 
+            href={button.link || '#'} 
+            class={`rounded-lg px-8 py-4 text-base font-black transition-all shadow-lg hover:shadow-xl uppercase tracking-wide inline-block ${button.style === 'primary' ? 'bg-primary text-white hover:bg-primary-dark' : 'bg-white/10 border border-white/30 text-white hover:bg-white/20 backdrop-blur-sm'}`}
+          >
             {button.label}
-          </button>
+          </a>
         ))}
       </div>
     </div>
