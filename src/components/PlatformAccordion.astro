@@ -1,0 +1,81 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  sections: Array<{
+    title: string;
+    icon?: string;
+    content: string;
+    bulletPoints?: Array<{ text: string }>;
+  }>;
+  lang: string;
+}
+
+const { title, description, sections, lang } = Astro.props;
+---
+
+<div class="py-12 md:py-20">
+  <div class="flex flex-col gap-12">
+    <!-- Header -->
+    <div class="pb-10 border-b-2 border-gray-100">
+      <div class="flex items-center gap-3 text-[#E2343A] font-black uppercase tracking-widest text-sm mb-4">
+        <span class="material-symbols-outlined text-xl">campaign</span>
+        <span>{title}</span>
+      </div>
+      <h1 class="text-4xl md:text-6xl font-heading font-black tracking-tight mb-6 leading-tight text-gray-900">{title}</h1>
+      {description && <p class="text-gray-600 text-xl md:text-2xl font-medium leading-relaxed max-w-3xl">{description}</p>}
+    </div>
+
+    <!-- Accordion Sections -->
+    <div class="grid gap-6">
+      {sections.map((section, index) => (
+        <details class="group bg-white rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden" open={index === 0}>
+          <summary class="flex items-center justify-between p-8 cursor-pointer hover:bg-gray-50/50 transition-colors select-none">
+            <div class="flex items-center gap-6">
+              <div class="w-14 h-14 rounded-2xl bg-[#E2343A]/10 text-[#E2343A] flex items-center justify-center group-open:bg-[#E2343A] group-open:text-white transition-colors duration-300">
+                <span class="material-symbols-outlined text-3xl">{section.icon || 'handshake'}</span>
+              </div>
+              <h3 class="text-xl md:text-2xl font-heading font-black text-gray-900 leading-tight">{section.title}</h3>
+            </div>
+            <div class="w-10 h-10 rounded-full border-2 border-gray-100 flex items-center justify-center group-hover:border-[#E2343A]/30 transition-colors">
+              <span class="material-symbols-outlined text-gray-400 group-hover:text-[#E2343A] transition-transform duration-300 group-open:rotate-180">expand_more</span>
+            </div>
+          </summary>
+          <div class="px-8 pb-8 pt-4 text-gray-700 leading-[1.8] border-t border-gray-50">
+            <div class="prose prose-lg prose-red max-w-none font-medium">
+               <div class="whitespace-pre-wrap mb-6 text-lg">{section.content}</div>
+               {section.bulletPoints && section.bulletPoints.length > 0 && (
+                 <ul class="space-y-4">
+                   {section.bulletPoints.map(point => (
+                     <li class="flex items-start gap-3">
+                       <span class="text-[#E2343A] mt-1">
+                         <span class="material-symbols-outlined text-xl">check_circle</span>
+                       </span>
+                       <span>{point.text}</span>
+                     </li>
+                   ))}
+                 </ul>
+               )}
+            </div>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  summary {
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  details[open] summary ~ * {
+    animation: slide-down 0.3s ease-out;
+  }
+  @keyframes slide-down {
+    0% { opacity: 0; transform: translateY(-10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+</style>

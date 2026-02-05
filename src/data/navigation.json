@@ -1,0 +1,207 @@
+{
+    "en": {
+        "menuItems": [
+            {
+                "label": "Home",
+                "link": "/"
+            },
+            {
+                "label": "Vision",
+                "link": "/vision"
+            },
+            {
+                "label": "Team",
+                "link": "/team"
+            },
+            {
+                "label": "Legislative",
+                "link": "/legislative"
+            },
+            {
+                "label": "News",
+                "link": "/news"
+            },
+            {
+                "label": "Contact",
+                "link": "/contact"
+            }
+        ],
+        "footerMenus": [
+            {
+                "title": "About",
+                "links": [
+                    {
+                        "label": "Our Vision",
+                        "link": "/vision"
+                    },
+                    {
+                        "label": "Our Team",
+                        "link": "/team"
+                    },
+                    {
+                        "label": "History",
+                        "link": "/history"
+                    }
+                ]
+            },
+            {
+                "title": "Action",
+                "links": [
+                    {
+                        "label": "Legislative Work",
+                        "link": "/legislative"
+                    },
+                    {
+                        "label": "Campaigns",
+                        "link": "/campaigns"
+                    },
+                    {
+                        "label": "Get Involved",
+                        "link": "/join"
+                    }
+                ]
+            }
+        ]
+    },
+    "he": {
+        "menuItems": [
+            {
+                "label": "בית",
+                "link": "/he"
+            },
+            {
+                "label": "החזון",
+                "link": "/he/vision"
+            },
+            {
+                "label": "הצוות",
+                "link": "/he/team"
+            },
+            {
+                "label": "פעילות פרלמנטרית",
+                "link": "/he/legislative"
+            },
+            {
+                "label": "חדשות",
+                "link": "/he/news"
+            },
+            {
+                "label": "צור קשר",
+                "link": "/he/contact"
+            }
+        ],
+        "footerMenus": [
+            {
+                "title": "אודות",
+                "links": [
+                    {
+                        "label": "החזון שלנו",
+                        "link": "/he/vision"
+                    },
+                    {
+                        "label": "הצוות שלנו",
+                        "link": "/he/team"
+                    },
+                    {
+                        "label": "היסטוריה",
+                        "link": "/he/history"
+                    }
+                ]
+            }
+        ]
+    },
+    "ar": {
+        "menuItems": [
+            {
+                "label": "الرئيسية",
+                "link": "/ar"
+            },
+            {
+                "label": "رؤيتنا",
+                "link": "/ar/vision"
+            },
+            {
+                "label": "فريقنا",
+                "link": "/ar/team"
+            },
+            {
+                "label": "العمل البرلماني",
+                "link": "/ar/legislative"
+            },
+            {
+                "label": "آخر الأخبار",
+                "link": "/ar/news"
+            },
+            {
+                "label": "اتصل بنا",
+                "link": "/ar/contact"
+            }
+        ],
+        "footerMenus": [
+            {
+                "title": "حول الجبهة",
+                "links": [
+                    {
+                        "label": "رؤيتنا",
+                        "link": "/ar/vision"
+                    },
+                    {
+                        "label": "فريقنا",
+                        "link": "/ar/team"
+                    },
+                    {
+                        "label": "تاريخنا",
+                        "link": "/ar/history"
+                    }
+                ]
+            }
+        ]
+    },
+    "ru": {
+        "menuItems": [
+            {
+                "label": "Главная",
+                "link": "/ru"
+            },
+            {
+                "label": "Видение",
+                "link": "/ru/vision"
+            },
+            {
+                "label": "Команда",
+                "link": "/ru/team"
+            },
+            {
+                "label": "Законодательная работа",
+                "link": "/ru/legislative"
+            },
+            {
+                "label": "Новости",
+                "link": "/ru/news"
+            },
+            {
+                "label": "Контакты",
+                "link": "/ru/contact"
+            }
+        ],
+        "footerMenus": [
+            {
+                "title": "О нас",
+                "links": [
+                    {
+                        "label": "Наше видение",
+                        "link": "/ru/vision"
+                    },
+                    {
+                        "label": "Наша команда",
+                        "link": "/ru/team"
+                    },
+                    {
+                        "label": "История",
+                        "link": "/ru/history"
+                    }
+                ]
+            }
+        ]
+    }
+}

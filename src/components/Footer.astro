@@ -1,0 +1,60 @@
+---
+import navigation from '../data/navigation.json';
+import siteSettings from '../data/site-settings.json';
+
+interface Props {
+  lang: string;
+}
+
+const { lang } = Astro.props;
+const data = navigation[lang] || navigation['en'];
+const settings = siteSettings[lang] || siteSettings['en'];
+const base = '/hadash';
+
+const getLink = (link: string) => {
+  if (link.startsWith('http') || link.startsWith('#')) return link;
+  return `${base}${link.startsWith('/') ? link : `/${link}`}`;
+};
+---
+
+<footer class="bg-[#072213] text-white pt-20 pb-10 mt-20">
+  <div class="container mx-auto max-w-7xl px-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+      <div class="lg:col-span-2">
+        <a href={getLink(lang === 'en' ? '/' : `/${lang}`)} class="flex items-center gap-3 mb-6 group">
+          <img 
+            src="https://hadash.org.il/support/wp-content/uploads/2025/11/HadashLogo-1024x294.png" 
+            alt="Hadash" 
+            class="h-12 w-auto object-contain transition-transform group-hover:scale-105"
+          />
+        </a>
+        <p class="text-gray-400 text-lg leading-relaxed max-w-md">
+          {settings.footerText}
+        </p>
+      </div>
+
+      {data.footerMenus?.map(menu => (
+        <div>
+          <h3 class="font-heading font-bold text-lg mb-6 text-white uppercase tracking-wider">{menu.title}</h3>
+          <ul class="space-y-4">
+            {menu.links.map(link => (
+              <li>
+                <a href={getLink(link.link)} class="text-gray-400 hover:text-red-500 transition-colors">
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <div class="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-500 text-sm">
+      <p>{settings.copyrightText}</p>
+      <div class="flex items-center gap-6">
+        <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+        <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>

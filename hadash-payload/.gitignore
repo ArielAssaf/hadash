@@ -1,9 +1,0 @@
-node_modules
-dist
-.turbo
-.next
-.astro
-.env
-payload-types.ts
-build
-.ds_store

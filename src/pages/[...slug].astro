@@ -1,0 +1,156 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PlatformAccordion from '../components/PlatformAccordion.astro';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('pages');
+  const news = await getCollection('news');
+  
+  const pagePaths = pages.map(page => {
+    let [lang, ...slugParts] = page.slug.split('/');
+    let slug = slugParts.join('/');
+    if (slug === 'index' || page.slug === 'index') slug = undefined;
+    let finalSlug = lang === 'en' ? slug : (slug ? `${lang}/${slug}` : lang);
+    if (lang === 'en' && !slug) finalSlug = undefined;
+    return { params: { slug: finalSlug || undefined }, props: { entry: page, type: 'page', lang } };
+  });
+
+  const newsPaths = news.map(article => {
+    const [lang, ...slugParts] = article.slug.split('/');
+    const slug = slugParts.join('/');
+    const finalSlug = lang === 'en' ? `news/${slug}` : `${lang}/news/${slug}`;
+    return { params: { slug: finalSlug }, props: { entry: article, type: 'news', lang } };
+  });
+
+  return [...pagePaths, ...newsPaths];
+}
+
+const { entry, type, lang } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<BaseLayout title={entry.data.title} description={entry.data.description} lang={lang}>
+  <main class={`py-12 ${type === 'news' ? 'container mx-auto px-4' : ''}`}>
+    {type === 'news' ? (
+      <article class="prose prose-lg prose-red max-w-4xl mx-auto">
+        <header class="mb-12 not-prose text-center">
+          <div class="flex items-center justify-center gap-4 mb-6">
+            <span class="px-3 py-1 bg-[#E2343A]/10 text-[#E2343A] text-sm font-bold rounded-full">{entry.data.category}</span>
+            <time class="text-gray-500 text-sm font-medium">
+              {new Date(entry.data.publishDate).toLocaleDateString(lang, { year: 'numeric', month: 'long', day: 'numeric' })}
+            </time>
+          </div>
+          <h1 class="text-4xl md:text-6xl font-heading font-black mb-6 leading-tight text-gray-900">{entry.data.title}</h1>
+          <p class="text-xl text-gray-600 italic leading-relaxed max-w-2xl mx-auto">{entry.data.description}</p>
+        </header>
+
+        {entry.data.image && (
+          <img src={entry.data.image} alt={entry.data.title} class="w-full h-[500px] object-cover rounded-[2rem] shadow-2xl mb-16 border border-gray-100 not-prose" />
+        )}
+
+        <div class="max-w-3xl mx-auto">
+          <Content />
+        </div>
+      </article>
+    ) : (
+      <>
+        {entry.data.hero && (
+          <section class="not-prose mb-20 text-center py-32 bg-[#072213] relative overflow-hidden rounded-[3rem] mx-4 lg:mx-8">
+            <div class="absolute inset-0 opacity-40 bg-[url('https://hadash.org.il/support/wp-content/uploads/2023/12/Crowd-BG.jpg')] bg-cover bg-center"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#072213] via-[#072213]/60 to-transparent"></div>
+            
+            <div class="relative z-10 max-w-6xl mx-auto px-6">
+              <h1 class="text-5xl md:text-8xl font-heading font-black mb-8 tracking-tight text-white leading-[1.1]">{entry.data.hero.title}</h1>
+              <p class="text-xl md:text-3xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed font-medium">{entry.data.hero.description}</p>
+              <div class="flex flex-wrap justify-center gap-6">
+                {entry.data.hero.buttons?.map(btn => (
+                  <a 
+                    href={btn.link.startsWith('/') && !btn.link.startsWith('/hadash/') ? `/hadash${btn.link}` : btn.link} 
+                    class={`px-10 py-5 rounded-full font-bold text-lg md:text-xl transition-all duration-300 flex items-center gap-3 ${
+                      btn.style === 'primary' 
+                      ? 'bg-[#E2343A] text-white hover:bg-white hover:text-[#E2343A] shadow-xl shadow-[#E2343A]/20 hover:scale-105' 
+                      : 'bg-white/10 backdrop-blur-md text-white border-2 border-white/20 hover:bg-white hover:text-[#E2343A]'
+                    }`}
+                  >
+                    {btn.label}
+                    <span class="material-symbols-outlined text-2xl">keyboard_double_arrow_left</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {entry.slug.includes('platform') && (
+          <section class="not-prose mb-20 container max-w-6xl mx-auto px-6">
+            <PlatformAccordion 
+              title={entry.data.title} 
+              description={entry.data.description} 
+              sections={entry.data.sections || []} 
+              lang={lang}
+            />
+          </section>
+        )}
+
+        <div class="container max-w-4xl mx-auto px-6 prose prose-lg prose-slate">
+          <Content />
+        </div>
+
+        {entry.slug.includes('news') && (
+          <section class="not-prose mt-24 container max-w-6xl mx-auto px-6">
+            <div class="grid gap-10">
+            {(await getCollection('news'))
+              .filter(article => article.slug.startsWith(lang))
+              .sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime())
+              .map(article => (
+                <a href={lang === 'en' ? `/hadash/news/${article.slug.split('/')[1]}` : `/hadash/${lang}/news/${article.slug.split('/')[1]}`} class="group flex flex-col md:flex-row gap-8 items-center p-8 bg-white rounded-[2rem] border border-gray-100 hover:border-hadashRed/30 transition-all hover:shadow-2xl hover:-translate-y-1">
+                  {article.data.image && (
+                    <div class="w-full md:w-80 h-56 flex-shrink-0 overflow-hidden rounded-2xl">
+                      <img src={article.data.image} class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                    </div>
+                  )}
+                  <div class="flex-1">
+                    <span class="inline-block px-3 py-1 bg-[#E2343A]/10 text-[#E2343A] text-xs font-bold rounded-full mb-4 uppercase tracking-widest">{article.data.category}</span>
+                    <h3 class="text-3xl md:text-4xl font-heading font-black group-hover:text-[#E2343A] transition-colors mb-4 leading-tight">{article.data.title}</h3>
+                    <p class="text-gray-600 text-lg leading-relaxed line-clamp-2 mb-6">{article.data.description}</p>
+                    <div class="flex items-center text-[#E2343A] font-bold gap-2 text-lg">
+                      <span>Read More</span>
+                      <span class="material-symbols-outlined text-xl">keyboard_double_arrow_left</span>
+                    </div>
+                  </div>
+                </a>
+            ))}
+            </div>
+          </section>
+        )}
+
+        {entry.data.missionSections && (
+          <section class="not-prose mt-24 container max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-8">
+            {entry.data.missionSections.map(mission => (
+              <div class="p-12 bg-white border border-gray-100 rounded-[3rem] shadow-sm hover:shadow-2xl transition-all duration-300 group">
+                <div class="w-16 h-16 bg-[#E2343A]/10 rounded-2xl flex items-center justify-center text-[#E2343A] mb-8 group-hover:bg-[#E2343A] group-hover:text-white transition-colors duration-300">
+                  <span class="material-symbols-outlined text-4xl">verified_user</span>
+                </div>
+                <h2 class="text-3xl font-heading font-black mb-6 whitespace-pre-line leading-tight">{mission.title}</h2>
+                <blockquote class="italic text-gray-500 border-r-4 border-[#E2343A]/30 pr-6 py-2 mb-10 text-xl font-medium leading-relaxed">"{mission.quote}"</blockquote>
+                <ul class="space-y-5">
+                  {mission.points.map(point => (
+                    <li class="flex items-start gap-4 text-gray-700">
+                      <span class="text-[#E2343A] mt-1 flex-shrink-0">
+                        <span class="material-symbols-outlined text-2xl">check_circle</span>
+                      </span>
+                      <span class="text-xl leading-snug">{point.text}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+            </div>
+          </section>
+        )}
+      </>
+    )}
+  </main>
+</BaseLayout>

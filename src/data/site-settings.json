@@ -1,0 +1,26 @@
+{
+    "en": {
+        "logoText": "Hadash",
+        "officialPortal": "Official Portal",
+        "footerText": "Building a shared future for all citizens of Israel, based on equality, social justice, and peace.",
+        "copyrightText": "© 2025 Hadash. All rights reserved."
+    },
+    "he": {
+        "logoText": "חד״ש",
+        "officialPortal": "פורטל רשמי",
+        "footerText": "בונים עתיד משותף לכל אזרחי ישראל, על בסיס שוויון, צדק חברתי ושלום.",
+        "copyrightText": "© 2025 חד״ש. כל הזכויות שמורות."
+    },
+    "ar": {
+        "logoText": "الجبهة",
+        "officialPortal": "البوابة الرسمية",
+        "footerText": "نبني مستقبلاً مشتركاً لجميع مواطني إسرائيل، على أساس المساواة والعدالة الاجتماعية والسلام.",
+        "copyrightText": "© 2025 الجبهة. جميع الحقوق محفوظة."
+    },
+    "ru": {
+        "logoText": "Хадаш",
+        "officialPortal": "Официальный портал",
+        "footerText": "Строим общее будущее для всех граждан Израиля на основе равенства, социальной справедливости и мира.",
+        "copyrightText": "© 2025 Хадаш. Все права защищены."
+    }
+}
