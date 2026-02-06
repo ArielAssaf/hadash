@@ -1,59 +1,74 @@
-# Hadash Website - Simplified Static Site
+# Hadash Website - Modern Static Platform
 
-This is a simplified, pure static Astro site for the **Democratic Front for Peace and Equality (Hadash)**. 
+This is the official static website for the **Democratic Front for Peace and Equality (Hadash)**, built with Astro.
 
-It replaces the previous complex setup (Payload CMS, Next.js, Postgres) with a maintainable, AI-friendly, and secure static architecture.
+It replaces previous complex architectures with a high-performance, accessible, and easily maintainable static site that strictly adheres to Hadash's brand identity.
 
 ## 🚀 Key Features
 
-- **Pure Static**: No database or server-side CMS required.
-- **Multilingual Support**: Content served in Hebrew, Arabic, Russian, and English.
-- **RTL Integrity**: Automatic RTL mirroring for Hebrew and Arabic using CSS logical properties and dynamic `dir` attributes.
-- **Content Collections**: Type-safe content management using Markdown files in `src/content/`.
-- **Modern Tech Stack**: Astro 5, Tailwind CSS, Google Fonts (Inter, Outfit), Material Symbols.
+- **Pure Static Architecture**: Zero server-side dependencies. Fast, secure, and hosting-agnostic.
+- **Unified Routing**: A single dynamic handler (`[...slug].astro`) manages *all* pages, news, and localized routes, greatly simplifying the codebase.
+- **Multilingual & RTL**: Native support for Hebrew (RTL), Arabic (RTL), English (LTR), and Russian (LTR) with automatic layout flipping.
+- **Type-Safe Content**: Built on Astro Content Collections for robust data validation.
 
-## 📁 Content Management
+## 🎨 Design System
 
-All content is managed directly in the `src/content/` directory:
+The site implements the official **Hadash Branding 2.0**:
 
-- **Pages**: `src/content/pages/[lang]/[slug].md`
-- **News**: `src/content/news/[lang]/[slug].md`
+- **Primary Colors**:
+  - 🔴 **Hadash Red**: `#E2343A` (Navigation, Buttons, Highlights)
+  - 🟢 **Hadash Green**: `#072213` (Footer, Hero Backgrounds)
+  - ⚪ **Background**: `#F4F0EE` (Warm Light Gray)
+- **Typography**:
+  - **Headings**: `IBM Plex Sans Arabic` (Bold, Modern)
+  - **Body**: `Assistant` (Clean, Readable)
+- **UI Components**:
+  - **Glassmorphic Navigation**: Solid branded header with white text.
+  - **Pill Buttons**: Rounded interactive elements using the primary red.
+  - **Card System**: Consistent rounded (`rounded-[2rem]`) cards with soft shadows.
 
-To add a new page or article, simply create a new Markdown file in the appropriate locale folder.
+## 📁 Content Structure
 
-### Configuration
+All content is managed via Markdown in `src/content/`:
 
-- **Navigation**: Managed in `src/data/navigation.json`.
-- **Site Settings**: Managed in `src/data/site-settings.json`.
+- **Pages**: `src/content/pages/[lang]/[slug].md` (e.g., `vision`, `about`)
+- **News**: `src/content/news/[lang]/[slug].md` (News articles)
+- **Navigation**: `src/data/navigation.json` (Menu structures per language)
+
+### adding Content
+To add a new article, simply place a new `.md` file in the appropriate language folder. The Unified Router will automatically generate the page at `/hadash/[lang]/news/[slug]`.
 
 ## 🛠️ Development
 
-### Setup
+### Prerequisites
+- Node.js v18+
 
+### Quick Start
 ```bash
+# Install dependencies
 npm install
-```
 
-### Dev Server
-
-```bash
+# Start local dev server
 npm run dev
 ```
 
-### Build
-
+### Build for Production
 ```bash
 npm run build
 ```
+The output will be generated in `dist/`.
 
-The output will be in the `dist/` folder, ready for deployment to GitHub Pages or any static hosting.
+## 🏗️ Architecture Overview
 
-## 🏗️ Architecture
+| File/Directory | Purpose |
+| :--- | :--- |
+| `src/pages/[...slug].astro` | **The Core Engine**. Handles routing for *every* page type (Home, News, Content). |
+| `src/layouts/BaseLayout.astro` | Global shell, `<head>` management, fonts, and RTL/LTR logic. |
+| `src/components/Navigation.astro` | Responsive, localized navigation bar with brand styling. |
+| `src/content/` | The "Database". All text and metadata lives here. |
 
-- **`src/layouts/BaseLayout.astro`**: Main layout handling HTML structure, fonts, and RTL support.
-- **`src/pages/[...slug].astro`**: Dynamic route handler that maps content files to URLs.
-- **`src/components/`**: Reusable UI components (Navigation, Footer, PlatformAccordion, etc.).
+## 🧹 Maintenance Rules
 
-## 🧹 Maintenance
-
-This project follows a "Clean Slate" approach. Avoid adding server-side dependencies or complex build scripts. Keep the content organization flat and simple for easy editing by humans and AI agents.
+1. **Keep it Static**: Do not introduce server-side logic (Node.js/PHP) unless strictly necessary for a build step.
+2. **Use the Router**: Do not create manual `.astro` files for new pages. Use the Content Collections and `[...slug].astro`.
+3. **Respect the Brand**: Always use the defined Hex codes for Red and Green. Do not use generic Tailwind colors (e.g., `bg-red-500`).
