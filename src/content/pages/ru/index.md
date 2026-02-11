@@ -5,8 +5,8 @@ hero:
   title: "Строим общее будущее"
   description: "Хадаш — это еврейско-арабское партнерство во имя равенства, социальной справедливости и мира."
   buttons:
-    - label: "Присоединяйтесь к нам"
-      link: "/ru/join"
+    - label: "Поддержите нас"
+      link: "/he/donation"
       style: "primary"
 missionSections:
   - title: "Социальная\nсправедливость"

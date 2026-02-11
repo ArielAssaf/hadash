@@ -2,25 +2,69 @@
     "en": {
         "logoText": "Hadash",
         "officialPortal": "Official Portal",
-        "footerText": "Building a shared future for all citizens of Israel, based on equality, social justice, and peace.",
-        "copyrightText": "© 2025 Hadash. All rights reserved."
+        "footerText": "Hadash is a Jewish-Arab left-wing front advocating for an end to the occupation and the establishment of a just peace, civil, national and political equality, social justice and the advancement of workers' rights.",
+        "newsletterTitle": "Subscribe to our newsletter",
+        "newsletterButton": "Register",
+        "emailPlaceholder": "e-mail",
+        "copyrightText": "© 2026 Hadash. All rights reserved.",
+        "footerLinks": {
+            "official": "Official Website",
+            "maki": "Maki Website",
+            "support": "Support Page",
+            "accessibility": "Accessibility Statement",
+            "regulations": "Site Regulations",
+            "privacy": "Privacy Policy"
+        }
     },
     "he": {
         "logoText": "חד״ש",
         "officialPortal": "פורטל רשמי",
-        "footerText": "בונים עתיד משותף לכל אזרחי ישראל, על בסיס שוויון, צדק חברתי ושלום.",
-        "copyrightText": "© 2025 חד״ש. כל הזכויות שמורות."
+        "footerText": "חד״ש היא חזית ערבית-יהודית שמאלית הדוגלת בסיום הכיבוש וביסוס שלום צודק, שוויון אזרחי, לאומי ופוליטי, צדק חברתי וקידום זכויות עובדים.",
+        "newsletterTitle": "הירשמו לניוזלטר שלנו",
+        "newsletterButton": "הרשמה",
+        "emailPlaceholder": "דואר אלקטרוני",
+        "copyrightText": "© 2026 חד״ש. כל הזכויות שמורות.",
+        "footerLinks": {
+            "official": "לאתר הרשמי",
+            "maki": "לאתר מק״י",
+            "support": "עמוד תרומה",
+            "accessibility": "הצהרת נגישות",
+            "regulations": "תקנון האתר",
+            "privacy": "מדיניות פרטיות"
+        }
     },
     "ar": {
         "logoText": "الجبهة",
         "officialPortal": "البوابة الرسمية",
-        "footerText": "نبني مستقبلاً مشتركاً لجميع مواطني إسرائيل، على أساس المساواة والعدالة الاجتماعية والسلام.",
-        "copyrightText": "© 2025 الجبهة. جميع الحقوق محفوظة."
+        "footerText": "الجبهة الديمقراطية للسلام والمساواة هي جبهة عربية-يهودية يسارية تدعو إلى إنهاء الاحتلال وتأسيس سلام عادل، ومساواة مدنية وقومية وسياسية، وعدالة اجتماعية وتعزيز حقوق العمال.",
+        "newsletterTitle": "اشترك في نشرتنا الإخبارية",
+        "newsletterButton": "تسجيل",
+        "emailPlaceholder": "البريد الإلكتروني",
+        "copyrightText": "© 2026 الجبهة. جميع الحقوق محفوظة.",
+        "footerLinks": {
+            "official": "الموقع الرسمي",
+            "maki": "موقع الحزب الشيوعي",
+            "support": "صفحة التبرع",
+            "accessibility": "بيان إمكانية الوصول",
+            "regulations": "لوائح الموقع",
+            "privacy": "سياسة الخصوصية"
+        }
     },
     "ru": {
         "logoText": "Хадаш",
         "officialPortal": "Официальный портал",
-        "footerText": "Строим общее будущее для всех граждан Израиля на основе равенства, социальной справедливости и мира.",
-        "copyrightText": "© 2025 Хадаш. Все права защищены."
+        "footerText": "Хадаш — это арабо-еврейский левый фронт, выступающий за прекращение оккупации и установление справедливого мира, гражданского, национального и политического равенства, социальной справедливости и защиту прав трудящихся.",
+        "newsletterTitle": "Подпишитесь на нашу рассылку",
+        "newsletterButton": "Регистрация",
+        "emailPlaceholder": "Эл. почта",
+        "copyrightText": "© 2026 Хадаш. Все права защищены.",
+        "footerLinks": {
+            "official": "Официальный сайт",
+            "maki": "Сайт МАКИ",
+            "support": "Страница поддержки",
+            "accessibility": "Заявление о доступности",
+            "regulations": "Правила сайта",
+            "privacy": "Политика конфиденциальности"
+        }
     }
 }

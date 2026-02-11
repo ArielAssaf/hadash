@@ -2,13 +2,13 @@
 title: "בית"
 description: "חד״ש - שותפות יהודית-ערבית לשוויון, צדק חברתי ושלום"
 hero:
-  title: "בונים עתיד משותף"
-  description: "חד״ש היא שותפות יהודית-ערבית למען שוויון, צדק חברתי ושלום."
+  title: "ביחד נבנה דמוקרטיה אמיתית"
+  description: "הצטרפו למאבק לשוויון, צדק חברתי וסיום הכיבוש. רק יחד נבטיח עתיד משותף לכל תושבי הארץ."
   buttons:
-    - label: "הצטרפו אלינו"
-      link: "/he/join"
+    - label: "תמכו בנו"
+      link: "/he/donation"
       style: "primary"
-    - label: "המצע שלנו"
+    - label: "קראו את המצע"
       link: "/he/platform"
       style: "secondary"
 missionSections:

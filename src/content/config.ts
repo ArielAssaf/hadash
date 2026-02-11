@@ -17,7 +17,8 @@ const pagesCollection = defineCollection({
         sections: z.array(z.object({
             title: z.string(),
             icon: z.string().optional(),
-            content: z.string().optional()
+            content: z.string().optional(),
+            bulletPoints: z.array(z.object({ text: z.string() })).optional()
         })).optional(),
         missionSections: z.array(z.object({
             title: z.string(),
@@ -28,6 +29,21 @@ const pagesCollection = defineCollection({
                 text: z.string()
             }))
         })).optional(),
+        legislative: z.object({
+            passed: z.array(z.object({
+                title: z.string(),
+                icon: z.string().optional(),
+                content: z.string(),
+                bulletPoints: z.array(z.object({ text: z.string() })).optional()
+            })),
+            blocked: z.array(z.object({
+                title: z.string(),
+                icon: z.string().optional(),
+                content: z.string(),
+                bulletPoints: z.array(z.object({ text: z.string() })).optional()
+            }))
+        }).optional(),
+        isDonationPage: z.boolean().optional(),
     }),
 });
 

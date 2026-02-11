@@ -5,12 +5,9 @@ hero:
   title: "Building a Shared Future"
   description: "Hadash is a Jewish-Arab partnership for equality, social justice, and peace."
   buttons:
-    - label: "Join Us"
-      link: "/join"
+    - label: "Support Us"
+      link: "/he/donation"
       style: "primary"
-    - label: "Our Vision"
-      link: "/vision"
-      style: "secondary"
 missionSections:
   - title: "Social Justice"
     mission_tag: "Mission 01"

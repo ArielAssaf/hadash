@@ -6,24 +6,16 @@
                 "link": "/"
             },
             {
-                "label": "Vision",
-                "link": "/vision"
-            },
-            {
-                "label": "Team",
-                "link": "/team"
+                "label": "Platform",
+                "link": "/platform"
             },
             {
                 "label": "Legislative",
                 "link": "/legislative"
             },
             {
-                "label": "News",
-                "link": "/news"
-            },
-            {
-                "label": "Contact",
-                "link": "/contact"
+                "label": "Support Us",
+                "link": "/he/donation"
             }
         ],
         "footerMenus": [
@@ -31,8 +23,8 @@
                 "title": "About",
                 "links": [
                     {
-                        "label": "Our Vision",
-                        "link": "/vision"
+                        "label": "Our Platform",
+                        "link": "/platform"
                     },
                     {
                         "label": "Our Team",
@@ -49,7 +41,7 @@
                 "links": [
                     {
                         "label": "Legislative Work",
-                        "link": "/legislative"
+                        "link": "/legislativeWork"
                     },
                     {
                         "label": "Campaigns",
@@ -70,24 +62,16 @@
                 "link": "/he"
             },
             {
-                "label": "החזון",
-                "link": "/he/vision"
-            },
-            {
-                "label": "הצוות",
-                "link": "/he/team"
+                "label": "תקנון",
+                "link": "/he/platform"
             },
             {
                 "label": "פעילות פרלמנטרית",
                 "link": "/he/legislative"
             },
             {
-                "label": "חדשות",
-                "link": "/he/news"
-            },
-            {
-                "label": "צור קשר",
-                "link": "/he/contact"
+                "label": "תמכו בנו",
+                "link": "/he/donation"
             }
         ],
         "footerMenus": [
@@ -95,8 +79,8 @@
                 "title": "אודות",
                 "links": [
                     {
-                        "label": "החזון שלנו",
-                        "link": "/he/vision"
+                        "label": "תקנון חד״ש",
+                        "link": "/he/platform"
                     },
                     {
                         "label": "הצוות שלנו",
@@ -117,24 +101,16 @@
                 "link": "/ar"
             },
             {
-                "label": "رؤيتنا",
-                "link": "/ar/vision"
-            },
-            {
-                "label": "فريقنا",
-                "link": "/ar/team"
+                "label": "الدستور",
+                "link": "/ar/platform"
             },
             {
                 "label": "العمل البرلماني",
                 "link": "/ar/legislative"
             },
             {
-                "label": "آخر الأخبار",
-                "link": "/ar/news"
-            },
-            {
-                "label": "اتصل بنا",
-                "link": "/ar/contact"
+                "label": "ادعمونا",
+                "link": "/he/donation"
             }
         ],
         "footerMenus": [
@@ -142,8 +118,8 @@
                 "title": "حول الجبهة",
                 "links": [
                     {
-                        "label": "رؤيتنا",
-                        "link": "/ar/vision"
+                        "label": "الدستور",
+                        "link": "/ar/platform"
                     },
                     {
                         "label": "فريقنا",
@@ -164,24 +140,16 @@
                 "link": "/ru"
             },
             {
-                "label": "Видение",
-                "link": "/ru/vision"
-            },
-            {
-                "label": "Команда",
-                "link": "/ru/team"
+                "label": "Платформа",
+                "link": "/ru/platform"
             },
             {
                 "label": "Законодательная работа",
                 "link": "/ru/legislative"
             },
             {
-                "label": "Новости",
-                "link": "/ru/news"
-            },
-            {
-                "label": "Контакты",
-                "link": "/ru/contact"
+                "label": "Поддержите нас",
+                "link": "/he/donation"
             }
         ],
         "footerMenus": [
@@ -189,8 +157,8 @@
                 "title": "О нас",
                 "links": [
                     {
-                        "label": "Наше видение",
-                        "link": "/ru/vision"
+                        "label": "Наша платформа",
+                        "link": "/ru/platform"
                     },
                     {
                         "label": "Наша команда",

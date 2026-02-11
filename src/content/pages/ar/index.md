@@ -5,8 +5,8 @@ hero:
   title: "نبني مستقبلاً مشتركاً"
   description: "الجبهة هي شراكة عربية يهودية من أجل المساواة والعدالة الاجتماعية والسلام."
   buttons:
-    - label: "انضم إلينا"
-      link: "/ar/join"
+    - label: "ادعمونا"
+      link: "/he/donation"
       style: "primary"
 missionSections:
   - title: "العدالة\nالاجتماعية"
