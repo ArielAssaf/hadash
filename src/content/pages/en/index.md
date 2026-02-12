@@ -6,7 +6,7 @@ hero:
   description: "Hadash is a Jewish-Arab partnership for equality, social justice, and peace."
   buttons:
     - label: "Support Us"
-      link: "/he/donation"
+      link: "/donation"
       style: "primary"
 missionSections:
   - title: "Social Justice"

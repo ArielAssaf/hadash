@@ -6,7 +6,7 @@ hero:
   description: "Хадаш — это еврейско-арабское партнерство во имя равенства, социальной справедливости и мира."
   buttons:
     - label: "Поддержите нас"
-      link: "/he/donation"
+      link: "/ru/donation"
       style: "primary"
 missionSections:
   - title: "Социальная\nсправедливость"

@@ -7,5 +7,6 @@ import tailwind from '@astrojs/tailwind';
 export default defineConfig({
     site: 'https://arielassaf.github.io',
     base: '/hadash/',
+    trailingSlash: 'ignore',
     integrations: [tailwind()],
 });

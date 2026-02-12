@@ -6,7 +6,7 @@ hero:
   description: "الجبهة هي شراكة عربية يهودية من أجل المساواة والعدالة الاجتماعية والسلام."
   buttons:
     - label: "ادعمونا"
-      link: "/he/donation"
+      link: "/ar/donation"
       style: "primary"
 missionSections:
   - title: "العدالة\nالاجتماعية"

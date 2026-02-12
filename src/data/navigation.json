@@ -15,7 +15,7 @@
             },
             {
                 "label": "Support Us",
-                "link": "/he/donation"
+                "link": "/donation"
             }
         ],
         "footerMenus": [
@@ -110,7 +110,7 @@
             },
             {
                 "label": "ادعمونا",
-                "link": "/he/donation"
+                "link": "/ar/donation"
             }
         ],
         "footerMenus": [
@@ -149,7 +149,7 @@
             },
             {
                 "label": "Поддержите нас",
-                "link": "/he/donation"
+                "link": "/ru/donation"
             }
         ],
         "footerMenus": [
